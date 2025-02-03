@@ -1,0 +1,29 @@
+alasan gajadi ambil ini karena Game minim posible untuk viral.
+
+Membuat aplikasi social challenge.
+membuat aplikasi ini dalam 6 minggu pertama.
+aplikasi ini tujuan untuk mengshare base categori.
+bisa share kesuluruh app.
+contoh case :
+case self improvement -> memberikan challange dalam sebulan.
+challenge itu akan divalidasi base video atau dll.
+fitur utamanya menchallange ke orang orang.
+
+roadmap jangka panjang -> bumble by topic. 
+terus ada minim group.
+
+1 sprint 6 minggu.
+project management menggunakan agile
+menggunakan jira.
+
+epic story => sistem keseluruhan
+user story => login 
+backlog => login butuh username dan password, validasi. 
+
+terdapat dua categori 
+olahraga dan self improvement
+
+validasi berupa: saksi dari orang lain.
+
+membuat project github menggunakan email mamarikan.
+
