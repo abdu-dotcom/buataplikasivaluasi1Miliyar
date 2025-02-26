@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>id.buataplikasivaluasi1miliyar.challanger.app</groupId>
-	<artifactId>buatalplikasivaluasi1Miliyar</artifactId>
+	<artifactId>buataplikasivaluasi1Miliyar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>buatalplikasivaluasi1Miliyar</name>
+	<name>AppApplication</name>
 	<description>Project buatalplikasivaluasi1Miliyar</description>
 	<url/>
 	<licenses>
