@@ -4,19 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@Data
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
     @Id
-    private String user_id;
+    @Column(name = "user_id")
+    private String userId;
 
     private String username;
     private String email;
