@@ -1,9 +1,11 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +14,7 @@ import java.sql.Timestamp;
 @Table(name = "challenges")
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Challenge {
 
     @Id
@@ -27,4 +30,7 @@ public class Challenge {
     private Integer categori_id;
     private Timestamp create_at;
     private Timestamp update_at;
+
+    @OneToMany(mappedBy = "challenge_id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ChallengeSub> subChallenges;
 }

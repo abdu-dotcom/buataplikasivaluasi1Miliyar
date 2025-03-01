@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ChallengeService {
     List<ChallengeDto> getChallengers();
+
+    ChallengeDto getChallengeById(Integer id);
 }
