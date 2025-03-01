@@ -22,7 +22,7 @@ public class ChallengeMapper {
                 challenge.getChallenge_participation_onprogress(),
                 challenge.getChallenge_participation_finished(),
                 challenge.getChallenge_participation_failed(),
-                challenge.getCategori_id(),
+                challenge.getCategoryId(),
                 challenge.getCreate_at(),
                 challenge.getUpdate_at(),
                 challenge.getSubChallenges() != null
@@ -51,7 +51,7 @@ public class ChallengeMapper {
         challenge.setChallenge_participation_onprogress(challengeDto.getChallengeParticipationOnProgress());
         challenge.setChallenge_participation_finished(challengeDto.getChallengeParticipationFinished());
         challenge.setChallenge_participation_failed(challengeDto.getChallengeParticipationFailed());
-        challenge.setCategori_id(challengeDto.getCategoryId());
+        challenge.setCategoryId(challengeDto.getCategoryId());
         challenge.setCreate_at(challengeDto.getCreatedAt());
         challenge.setUpdate_at(challengeDto.getUpdatedAt());
 

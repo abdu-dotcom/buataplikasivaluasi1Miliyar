@@ -27,7 +27,9 @@ public class Challenge {
     private Integer challenge_participation_onprogress;
     private Integer challenge_participation_finished;
     private Integer challenge_participation_failed;
-    private Integer categori_id;
+
+    @Column(name = "categori_id")
+    private Integer categoryId;
     private Timestamp create_at;
     private Timestamp update_at;
 

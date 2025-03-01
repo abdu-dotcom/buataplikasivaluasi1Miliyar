@@ -29,9 +29,14 @@ public class ChallengeController {
         return new ResponseEntity<>(challengers, HttpStatus.OK);
     }
 
+    @GetMapping("/challenger/category/{categoryId}")
+    public  ResponseEntity<List<ChallengeDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+        System.out.println("Id: " + categoryId);
+        List<ChallengeDto> challengeWithSub =  challengeService.getChallengeByCategoryId(categoryId);
+        return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
+    }
     @GetMapping("/challenger/{id}")
     public  ResponseEntity<ChallengeDto> getChallengerById(@PathVariable("id") Integer id) {
-
     System.out.println("Id: " + id);
         ChallengeDto challengeWithSub =  challengeService.getChallengeById(id);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);

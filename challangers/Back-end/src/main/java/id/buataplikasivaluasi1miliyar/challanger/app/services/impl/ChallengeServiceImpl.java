@@ -30,10 +30,20 @@ public class ChallengeServiceImpl implements ChallengeService {
         return users;
     }
 
-    // ✅ Ambil Challenge + Sub-Challenges (GET)
+    // ✅ Ambil Challenge + Sub-Challenges by Id challenge(GET)
     public ChallengeDto getChallengeById(Integer challengeId) {
         Challenge challenge = challengeRepository.findById(challengeId)
                 .orElseThrow(() -> new RuntimeException("Challenge tidak ditemukan"));
         return challengeMapper.toDto(challenge);
+    }
+
+    // ✅ Ambil Challenge + Sub-Challenges by Category Id(GET)
+    public List<ChallengeDto> getChallengeByCategoryId(Integer categoryId) {
+        List<ChallengeDto> challenge = challengeRepository.findByCategoryId(categoryId)
+                .stream()
+                .map(challengeMapper::toDto) // Konversi dari User ke UserDto
+                .collect(Collectors.toList());
+
+        return challenge;
     }
 }
