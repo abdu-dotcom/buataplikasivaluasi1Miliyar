@@ -37,7 +37,7 @@ public class ChallengeController {
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
     }
     @GetMapping("/challenger/{id}")
-    public  ResponseEntity<ChallengeDetailDto> getChallengerById(@PathVariable("id") Integer challenge_id) {
+    public  ResponseEntity<ChallengeDetailDto> getChallengerById(@PathVariable("challenge_id") Integer challenge_id) {
     System.out.println("challenge_id: " + challenge_id);
         ChallengeDetailDto challengeWithSub =  challengeService.getChallengeById(challenge_id);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
