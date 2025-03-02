@@ -1,6 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.CategoryDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeSubDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
@@ -30,15 +31,15 @@ public class ChallengeController {
     }
 
     @GetMapping("/challenger/category/{categoryId}")
-    public  ResponseEntity<List<ChallengeDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+    public  ResponseEntity<List<ChallengeDetailDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
         System.out.println("Id: " + categoryId);
-        List<ChallengeDto> challengeWithSub =  challengeService.getChallengeByCategoryId(categoryId);
+        List<ChallengeDetailDto> challengeWithSub =  challengeService.getChallengeByCategoryId(categoryId);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
     }
     @GetMapping("/challenger/{id}")
-    public  ResponseEntity<ChallengeDto> getChallengerById(@PathVariable("id") Integer id) {
-    System.out.println("Id: " + id);
-        ChallengeDto challengeWithSub =  challengeService.getChallengeById(id);
+    public  ResponseEntity<ChallengeDetailDto> getChallengerById(@PathVariable("id") Integer challenge_id) {
+    System.out.println("challenge_id: " + challenge_id);
+        ChallengeDetailDto challengeWithSub =  challengeService.getChallengeById(challenge_id);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
     }
 

@@ -30,5 +30,4 @@ public class ChallengeDto {
     private Integer categoryId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<ChallengeSubDto> subChallenges;
 }

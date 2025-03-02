@@ -19,7 +19,8 @@ public class Challenge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer challenge_id;
+    @Column(name = "challenge_id")
+    private Integer id;
     private String challenge_name;
     private String challenge_description;
     private String challenge_lavel;
