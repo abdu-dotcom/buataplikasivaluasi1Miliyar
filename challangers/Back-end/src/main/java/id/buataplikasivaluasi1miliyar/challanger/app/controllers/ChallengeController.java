@@ -23,13 +23,9 @@ public class ChallengeController {
 
     @GetMapping("/challengers")
     public ResponseEntity<List<ChallengeDto>> getChallengers() {
-
         List<ChallengeDto> challengers = challengeService.getChallengers();
-
-        System.out.println("Mapping categories: " + challengers.size()); // Debug mapping
         return new ResponseEntity<>(challengers, HttpStatus.OK);
     }
-
     @GetMapping("/challenger/category/{categoryId}")
     public  ResponseEntity<List<ChallengeDetailDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
         System.out.println("Id: " + categoryId);
@@ -38,10 +34,7 @@ public class ChallengeController {
     }
     @GetMapping("/challenger/{id}")
     public  ResponseEntity<ChallengeDetailDto> getChallengerById(@PathVariable("challenge_id") Integer challenge_id) {
-    System.out.println("challenge_id: " + challenge_id);
         ChallengeDetailDto challengeWithSub =  challengeService.getChallengeById(challenge_id);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
     }
-
-
 }

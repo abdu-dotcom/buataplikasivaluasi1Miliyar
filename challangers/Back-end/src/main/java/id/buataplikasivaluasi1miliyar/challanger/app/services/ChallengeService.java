@@ -2,7 +2,6 @@ package id.buataplikasivaluasi1miliyar.challanger.app.services;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
 
 import java.util.List;
 
