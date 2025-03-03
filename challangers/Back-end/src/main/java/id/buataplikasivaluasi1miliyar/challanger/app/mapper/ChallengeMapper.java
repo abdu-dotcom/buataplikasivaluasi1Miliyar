@@ -35,6 +35,15 @@ public interface ChallengeMapper {
     Challenge toChallengeDetailEntity(ChallengeDetailDto challengeDetailDto);
 
     @Mapping(source = "id", target = "challengeId")
+    @Mapping(source = "challenge_name", target = "challengeName")
+    @Mapping(source = "challenge_description", target = "challengeDescription")
+    @Mapping(source = "challenge_lavel", target = "challengeLevel")
+    @Mapping(source = "challenge_participation", target = "challengeParticipation")
+    @Mapping(source = "challenge_participation_onprogress", target = "challengeParticipationOnProgress")
+    @Mapping(source = "challenge_participation_finished", target = "challengeParticipationFinished")
+    @Mapping(source = "challenge_participation_failed", target = "challengeParticipationFailed")
+    @Mapping(source = "create_at", target = "createdAt")
+    @Mapping(source = "update_at", target = "updatedAt")
     @Mapping(source = "subChallenges", target = "subChallenges")
     ChallengeDetailDto toChallengeDetailDto(Challenge challenge);
 

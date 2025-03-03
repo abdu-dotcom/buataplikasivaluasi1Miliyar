@@ -34,6 +34,6 @@ public class Challenge {
     private Timestamp create_at;
     private Timestamp update_at;
 
-    @OneToMany(mappedBy = "challenge_id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "challenge_id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ChallengeSub> subChallenges;
 }
