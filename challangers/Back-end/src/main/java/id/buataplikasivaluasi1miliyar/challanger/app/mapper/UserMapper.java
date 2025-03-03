@@ -3,27 +3,23 @@ package id.buataplikasivaluasi1miliyar.challanger.app.mapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserRequest;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    // Convert UserRequest DTO ke User Entity
-    public UserRequest toEntity(UserRequest userRequest) {
-    return new UserRequest(
-        userRequest.getUser_id(), // ID (jika perlu, atau bisa di-set null)
-        userRequest.getUsername());
-    };
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    // Convert UserDto into JPA Entity | Response
-    public UserResponse toResponse(User user){
+    @Mapping(source = "user_id", target = "userId")
+    @Mapping(source = "username", target = "username")
+    User toEntity(UserRequest userRequest);
 
-    return new UserResponse(
-        user.getUserId(),
-        user.getUsername(),
-        user.getEmail(),
-        user.getCreate_at(),
-        user.getUpdate_at());
-    }
-
+    @Mapping(source = "userId", target = "user_id")
+    @Mapping(source = "username", target = "username")
+    @Mapping(source = "email", target = "email")
+    @Mapping(source = "create_at", target = "create_at")
+    @Mapping(source = "update_at", target = "update_at")
+    UserResponse toResponse(User user);
 }

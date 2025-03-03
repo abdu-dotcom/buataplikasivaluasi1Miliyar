@@ -1,34 +1,30 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.mapper;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+import java.util.List;
 
-@Component
-public class UserChallengeMapper {
+@Mapper(componentModel = "spring")
+public interface UserChallengeMapper {
 
-    public UserChallengeDto toDTO(UserChallenge challenge) {
-        return new UserChallengeDto(
-                challenge.getUserChallengeId(),
-                challenge.getUserId(),
-                challenge.getChallengeId(),
-                challenge.getStatus(),
-                challenge.getJoinedat(),
-                challenge.getFinishedat(),
-                challenge.getDeadlinedat()
-        );
-    }
+    UserChallengeMapper INSTANCE = Mappers.getMapper(UserChallengeMapper.class);
 
-    public UserChallenge toEntity(UserChallengeDto dto) {
-        return new UserChallenge(
-                dto.getUserChallengeId(),
-                dto.getUserId(),
-                dto.getChallengeId(),
-                dto.getStatus(),
-                dto.getJoinedat(),
-                dto.getFinishedat(),
-                dto.getDeadlinedat());
-    }
+    @Mapping(source = "userChallengeId", target = "userChallengeId")
+    @Mapping(source = "userId", target = "userId")
+    @Mapping(source = "challengeId", target = "challengeId")
+    @Mapping(source = "status", target = "status")
+    @Mapping(source = "joinedat", target = "joinedat")
+    @Mapping(source = "finishedat", target = "finishedat")
+    @Mapping(source = "deadlinedat", target = "deadlinedat")
+    UserChallengeDto toDTO(UserChallenge challenge);
 
+    @InheritInverseConfiguration
+    UserChallenge toEntity(UserChallengeDto dto);
+
+    List<UserChallengeDto> toDTOList(List<UserChallenge> challenges);
+    List<UserChallenge> toEntityList(List<UserChallengeDto> dtos);
 }

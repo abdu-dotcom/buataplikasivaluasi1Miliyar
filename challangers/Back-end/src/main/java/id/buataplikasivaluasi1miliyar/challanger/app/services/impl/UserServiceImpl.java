@@ -70,9 +70,6 @@ public class UserServiceImpl implements UserService {
         if (existsByUserId) userId =  generateUserId(); // create userId baru
         if (userExists)  throw new IllegalArgumentException("Username sudah digunakan"); // error jika username exist
 
-        logger.info("=== After [userId] :" + "==>" + "["+ userId + "]");
-        logger.info("=== [username] :" + "==>" + "["+ username + "]");
-
         // init data new user
         User user = new User();
         // set data user
