@@ -19,10 +19,7 @@ public class UsersController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getUsers() {
-
         List<UserResponse> users = userService.getUsers();
-
-        System.out.println("Mapping user: " + users.size()); // Debug mapping
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
