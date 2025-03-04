@@ -29,4 +29,12 @@ public class ExploreMenuServiceImpl implements ExploreMenuService {
         // entity to dto
         return exploreMenuMapper.toExploreMenuDto(userChallengeProgress);
     }
+
+    @Override
+    public List<ExploreMenuDto> getProgressAUser(String userId) {
+        List<ExploreMenuProjection>  userChallengeProgress = exploreMenuRepository.findProgressByUserId(userId);
+
+        // entity to dto
+        return exploreMenuMapper.toExploreMenuDto(userChallengeProgress);
+    }
 }

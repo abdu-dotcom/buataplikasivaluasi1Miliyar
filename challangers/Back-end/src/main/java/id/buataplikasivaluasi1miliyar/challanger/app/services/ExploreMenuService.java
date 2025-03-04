@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ExploreMenuService {
     List<ExploreMenuDto> getProgresAllUsers();
+
+    List<ExploreMenuDto> getProgressAUser(String userId);
 }

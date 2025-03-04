@@ -29,4 +29,23 @@ public interface ExploreMenuRepository extends JpaRepository<UserChallengeProgre
     	uc.user_id = u.user_id
     """, nativeQuery = true)
     List<ExploreMenuProjection> findAllWithUserInfo();
+
+    @Query(value = """
+     select
+    	u.user_id as userId,
+    	u.username as username,
+    	ucp.progress_id as progressId,
+    	ucp.user_challange_id as userChallengeId,
+    	ucp.challenge_sub_id as challengeSubId,
+    	ucp.caption as caption,
+    	ucp.proof_url as proofUrl,
+    	ucp.create_at as createAt
+    from
+    	user_challenges_progress ucp
+    join user_challenges uc on
+    	ucp.user_challange_id = uc.user_challange_id
+    join users u on
+    	uc.user_id = u.user_id
+    """, nativeQuery = true)
+    List<ExploreMenuProjection> findProgressByUserId(String userId);
 }
