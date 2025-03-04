@@ -10,3 +10,4 @@ cd "E:\Project\Side Hustle\buataplikasivaluasi1Miliyar\Developed\challangers\Bac
 File -> Build, Execution, Deployment -> Annotation profile for AppAplication.
 set true Obtain processors from project classpath
 
+#### Formaater code  >>> Ctrl + Alt + L
