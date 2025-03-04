@@ -1,6 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.StartChallengeDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ProcessChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ProcessChallengeService;
 import lombok.AllArgsConstructor;
@@ -15,9 +15,14 @@ public class ProgressChallengeController {
     private ProcessChallengeService processChallengeService;
 
     @PostMapping("/start-challenge")
-    public ResponseEntity<StartChallengeDto> startChallenge(@RequestBody StartChallengeDto request) {
-        StartChallengeDto result = processChallengeService.startChallenge(request);
+    public ResponseEntity<ProcessChallengeDto> startChallenge(@RequestBody ProcessChallengeDto request) {
+        ProcessChallengeDto result = processChallengeService.startChallenge(request);
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/complate-challenge/{progressId}")
+    public ResponseEntity<ProcessChallengeDto> complateChallenge(@PathVariable Integer progressId, @RequestBody ProcessChallengeDto request) {
+        ProcessChallengeDto result = processChallengeService.updateUserChallengeProgress(progressId, request);
+        return ResponseEntity.ok(result);
+    }
 }

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 public class UserChallengeProgress {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "progress_id")
     private Integer progressId;
     @Column(name = "user_challange_id")
