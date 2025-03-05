@@ -1,3 +1,14 @@
 {
-    "cmake.sourceDirectory": "E:/Project/Side Hustle/buataplikasivaluasi1Miliyar/challangers/windows/flutter"
+    "cmake.sourceDirectory": "E:/Project/Side Hustle/buataplikasivaluasi1Miliyar/challangers/windows/flutter",
+        "gradle.javaDebug": {
+          "tasks": [
+            "run",
+            "runBoot",
+            "test",
+            "intTest",
+            "integration"
+          ]
+        },
+        "java.configuration.updateBuildConfiguration": "interactive"
+    
 }

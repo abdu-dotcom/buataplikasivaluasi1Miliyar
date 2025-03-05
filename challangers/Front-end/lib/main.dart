@@ -1,4 +1,4 @@
-import 'package:challangers/screen/onboarding_screen.dart';
+import 'package:challangers/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnboardingScreen()
+      home: LoginScreen()
     );
   }
 }
