@@ -15,6 +15,8 @@ public class ChallengeSub {
     private Integer challenge_sub_id;
     private String challenge_sub_name;
     private Integer challenge_sub_point;
+    private String challenge_sub_tipe_deadline;
+    private String challenge_sub_deadline_time;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id", nullable = false)

@@ -52,6 +52,8 @@ public interface ChallengeMapper {
     @Mapping(source = "challengeSubId", target = "challenge_sub_id")
     @Mapping(source = "challengeSubName", target = "challenge_sub_name")
     @Mapping(source = "challengeSubPoint", target = "challenge_sub_point")
+    @Mapping(source = "challengeSubTipeDeadline", target = "challenge_sub_tipe_deadline")
+    @Mapping(source = "challengeSubDeadlineTime", target = "challenge_sub_deadline_time")
     ChallengeSub toSubEntity(ChallengeSubDto challengeSubDto);
 
     @InheritInverseConfiguration

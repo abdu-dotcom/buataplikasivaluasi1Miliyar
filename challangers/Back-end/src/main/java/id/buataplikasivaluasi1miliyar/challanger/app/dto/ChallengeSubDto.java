@@ -16,6 +16,9 @@ public class ChallengeSubDto {
     private int challengeSubId;
     private String challengeSubName;
     private int challengeSubPoint;
+    private String challengeSubTipeDeadline;
+    private String challengeSubDeadlineTime;
+
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private UserChallengeProgressDto challengeSubProgress;
