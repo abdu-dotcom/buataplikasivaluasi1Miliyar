@@ -11,8 +11,9 @@ import java.util.List;
 public class LeaderboardDto {
     private String status;
     private String timestamp;
-    private List<LeaderboardItem> leaderboard;
     private UserRank user_rank;
+    private List<LeaderboardItem> leaderboard;
+
 
     @Data
     @Builder

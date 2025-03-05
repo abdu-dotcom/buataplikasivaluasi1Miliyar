@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,5 +19,5 @@ public class Leaderboard {
     private Integer leaderboard_id;
     private String user_id;
     private Integer score;
-    private Timestamp record_at;
+    private LocalDateTime record_at;
 }

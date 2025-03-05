@@ -23,8 +23,9 @@ public interface LeaderboardRepository extends JpaRepository<Leaderboard, Intege
     List<LeaderboardProjection> findTop100ByOrderByScoreDesc();
 
       @Query(value ="""
-      SELECT userId, username, score, recordAt, rank FROM (
+      SELECT LeaderboardId, userId, username, score, recordAt, rank FROM (
             SELECT
+                l.leaderboard_id as LeaderboardId,
                 l.user_id AS userId,
                 u.username AS username,
                 l.score AS score,

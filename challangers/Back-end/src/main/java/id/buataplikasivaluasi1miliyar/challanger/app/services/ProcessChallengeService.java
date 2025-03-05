@@ -8,6 +8,6 @@ public interface ProcessChallengeService {
     ProcessChallengeDto startChallenge(ProcessChallengeDto startChallengeDto);
     // complete sub challenge progress - update adta tabel user_challenge_progress status
 
-    ProcessChallengeDto updateUserChallengeProgress(Integer progressId, ProcessChallengeDto complateProgress);
+    ProcessChallengeDto complateUserChallengeProgress(Integer progressId, ProcessChallengeDto complateProgress);
     // failed sub challenge progress - update data tabel user_challenge_progress status
 }

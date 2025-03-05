@@ -4,6 +4,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.Leaderboard.Leaderboard
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Leaderboard;
 import id.buataplikasivaluasi1miliyar.challanger.app.projection.LeaderboardProjection;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -27,6 +28,6 @@ public interface LeaderboardMapper {
                 new LeaderboardDto.UserRank(entry.getRank(), entry.getUserId(), entry.getScore(), entry.getRecordAt())
         ).orElse(null);
 
-        return new LeaderboardDto("success", Instant.now().toString(), leaderboardList, userRankData);
+        return new LeaderboardDto("success", Instant.now().toString(), userRankData,leaderboardList);
     }
 }

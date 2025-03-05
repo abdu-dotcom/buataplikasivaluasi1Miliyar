@@ -22,7 +22,7 @@ public class ProgressChallengeController {
 
     @PostMapping("/complate-challenge/{progressId}")
     public ResponseEntity<ProcessChallengeDto> complateChallenge(@PathVariable Integer progressId, @RequestBody ProcessChallengeDto request) {
-        ProcessChallengeDto result = processChallengeService.updateUserChallengeProgress(progressId, request);
+        ProcessChallengeDto result = processChallengeService.complateUserChallengeProgress(progressId, request);
         return ResponseEntity.ok(result);
     }
 }

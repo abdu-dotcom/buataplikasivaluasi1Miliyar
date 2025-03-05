@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProcessChallengeDto {
     // data user challenge progress
+    private String user_Id;
     private Integer user_challange_id;
     private Integer challenge_sub_id;
     private String status;
