@@ -80,16 +80,22 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             subChallenge.setChallengeSubId((Integer) row[4]);
             subChallenge.setChallengeSubName((String) row[5]);
             subChallenge.setChallengeSubPoint((Integer) row[6]);
+            subChallenge.setChallengeSubTipeDeadline((String) row[7]);
+            subChallenge.setChallengeSubDeadlineTime((Integer) row[8]);
+
             // Ambil progress detail (bisa null)
             UserChallengeProgressDto progressDetail = null;
-            if (row[6] != null) {
+            if (row[9] != null) {
                 progressDetail = new UserChallengeProgressDto();
-                progressDetail.setStatus((String) row[7]);
-                progressDetail.setCompletedAt(row[8] != null ? ((Timestamp) row[8]).toLocalDateTime() : null);
+                progressDetail.setStatus((String) row[9]);
+                progressDetail.setStartedAt(row[10] != null ? ((Timestamp) row[10]).toLocalDateTime() : null);
+                progressDetail.setCompletedAt(row[11] != null ? ((Timestamp) row[11]).toLocalDateTime() : null);
+                progressDetail.setDeadlineAt(row[12] != null ? ((Timestamp) row[12]).toLocalDateTime() : null);
+                progressDetail.setCaption((String) row[13]);
+                progressDetail.setProofUrl((String) row[14]);
             } else{
                 progressDetail = new UserChallengeProgressDto();
-                progressDetail.setStatus("null");
-                progressDetail.setCompletedAt(null);
+                progressDetail.setStatus("Locked");
             }
             subChallenge.setChallengeSubProgress(progressDetail);
 

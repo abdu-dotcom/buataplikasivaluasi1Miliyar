@@ -15,5 +15,9 @@ import java.time.LocalDateTime;
 @JsonPropertyOrder
 public class UserChallengeProgressDto {
     private String status;
+    private String caption;
+    private String proofUrl;
+    private LocalDateTime startedAt;
+    private LocalDateTime deadlineAt;
     private LocalDateTime completedAt;
 }

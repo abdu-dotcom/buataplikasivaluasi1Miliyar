@@ -29,8 +29,11 @@ public class UserChallengeProgress {
     private String caption; // joined, on_progress, completed, failed
     @Column(name = "proof_url")
     private String proofUrl;
-    @Column(name = "last_point_gain")
-    private Integer lastPointGain;
-    @Column(name = "create_at")
-    private LocalDateTime createAt;
+    @Column(name = "started_at")
+    private LocalDateTime startedAt;
+    @Column(name = "completed_at")
+    private LocalDateTime completedAt;
+    @Column(name = "deadline_at")
+    private LocalDateTime deadlineAt;
+
 }

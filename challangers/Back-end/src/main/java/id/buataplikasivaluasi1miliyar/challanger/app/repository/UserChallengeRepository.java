@@ -11,11 +11,15 @@ import java.util.List;
 @Repository
 public interface UserChallengeRepository extends JpaRepository<UserChallenge, Integer> {
     @Query(value = """
-        SELECT uc.user_id, u.username, 
+        SELECT uc.user_id, u.username,
                c.challenge_id, c.challenge_name,
                cs.challenge_sub_id, cs.challenge_sub_name,
                cs.challenge_sub_point,
-               ucp.status, ucp.create_at
+               cs.challenge_sub_tipe_deadline,
+               cs.challenge_sub_deadline_time,
+               ucp.status, ucp.started_at, 
+               ucp.completed_at, ucp.deadline_at,
+               ucp.caption, ucp.proof_url
         FROM user_challenges uc
         JOIN users u ON uc.user_id = u.user_id
         JOIN challenges c ON uc.challenge_id = c.challenge_id

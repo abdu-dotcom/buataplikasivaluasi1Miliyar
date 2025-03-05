@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,9 @@ public class ProcessChallengeDto {
     // data user challenge progress
     private Integer user_challange_id;
     private Integer challenge_sub_id;
-    private LocalDateTime create_at;
     private String status;
-
+    private LocalDateTime startedAt;
+    private LocalDateTime completedAt;
+    private LocalDateTime deadlineAt;
     private ActionProcessFlow actionProcessFlow;
 }

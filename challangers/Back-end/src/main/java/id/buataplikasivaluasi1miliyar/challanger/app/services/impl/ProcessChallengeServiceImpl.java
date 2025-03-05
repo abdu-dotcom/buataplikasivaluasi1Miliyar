@@ -25,7 +25,7 @@ public class ProcessChallengeServiceImpl implements ProcessChallengeService {
         UserChallengeProgress userChallengeProgressData = processChallengeMapper.toEntity(request);
 
         userChallengeProgressData.setStatus("on_prgoress");
-        userChallengeProgressData.setCreateAt(LocalDateTime.now());
+        userChallengeProgressData.setStartedAt(LocalDateTime.now());
         // save
         UserChallengeProgress saved = processChallengeRepository.save(userChallengeProgressData);
 
@@ -51,7 +51,6 @@ public class ProcessChallengeServiceImpl implements ProcessChallengeService {
             existingProgress.setCaption("Custom Caption");
             existingProgress.setProofUrl("https:google.com");
             existingProgress.setStatus("Complate");
-            existingProgress.setLastPointGain(30);
 
             saved = processChallengeRepository.save(existingProgress);
         } else {

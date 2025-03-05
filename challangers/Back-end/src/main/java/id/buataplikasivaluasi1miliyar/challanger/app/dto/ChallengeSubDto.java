@@ -13,11 +13,11 @@ import lombok.Setter;
 @JsonPropertyOrder
 public class ChallengeSubDto {
     @Id
-    private int challengeSubId;
-    private String challengeSubName;
-    private int challengeSubPoint;
-    private String challengeSubTipeDeadline;
-    private String challengeSubDeadlineTime;
+    private Integer challengeSubId;
+    private String  challengeSubName;
+    private Integer challengeSubPoint;
+    private String  challengeSubTipeDeadline;
+    private Integer challengeSubDeadlineTime;
 
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
