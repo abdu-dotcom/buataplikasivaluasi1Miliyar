@@ -39,7 +39,7 @@ public interface ExploreMenuRepository extends JpaRepository<UserChallengeProgre
     	ucp.challenge_sub_id as challengeSubId,
     	ucp.caption as caption,
     	ucp.proof_url as proofUrl,
-    	ucp.create_at as createAt
+    	ucp.started_at as startAt
     from
     	user_challenges_progress ucp
     join user_challenges uc on

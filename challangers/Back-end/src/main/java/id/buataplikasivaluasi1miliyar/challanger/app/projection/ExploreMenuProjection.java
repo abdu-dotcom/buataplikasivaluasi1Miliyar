@@ -12,5 +12,5 @@ public interface ExploreMenuProjection {
     Integer getChallengeSubId();
     String getCaption();
     String getProofUrl();
-    LocalDateTime getCreateAt();
+    LocalDateTime getStartAt();
 }

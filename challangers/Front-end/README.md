@@ -22,3 +22,6 @@ $env:PATH="$env:JAVA_HOME\bin;$env:PATH"
 
 ## run emulator use Nexus
 emulator -avd Nexus6P
+
+## run flutter
+flutter run 
