@@ -14,6 +14,7 @@ class LoginScreen extends StatelessWidget {
     LogService.logger.i("Layar login screen dibuka");
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
