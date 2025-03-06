@@ -20,6 +20,11 @@ samples, guidance on mobile development, and a full API reference.
 $env:JAVA_HOME="C:\Program Files\Java\jdk-17.0.12"
 $env:PATH="$env:JAVA_HOME\bin;$env:PATH"
 
+## clean dan re-build project 
+flutter clean
+flutter pub get
+flutter doctor
+
 ## run emulator use Nexus
 emulator -avd Nexus6P
 
