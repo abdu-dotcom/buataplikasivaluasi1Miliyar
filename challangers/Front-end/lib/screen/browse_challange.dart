@@ -1,9 +1,11 @@
+import 'package:challangers/screen/challenge_detail.dart';
 import 'package:flutter/material.dart';
 
 class BrowseChallengeScreen extends StatelessWidget {
   final List<Map<String, dynamic>> challenges = List.generate(
       5,
       (index) => {
+            "id": index,
             "title": "30-Day Morning Run",
             "estimate": "30 Hari",
             "level": "Beginner",
@@ -79,7 +81,10 @@ class ChallengeCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: () {
-          print("Card clicked: ${challenge['title']}");
+          print(
+              "Card clicked: ${challenge['title']} with id: ${challenge['id']}");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ChallengeDetailScreen()));
         },
         borderRadius: BorderRadius.circular(10),
         splashColor: Colors.grey.withOpacity(0.2), // Ubah warna efek klik

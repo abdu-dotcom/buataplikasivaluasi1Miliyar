@@ -1,13 +1,27 @@
-// screens/login_screen.dart
-
+import 'package:challangers/screen/my_challenge.dart';
 import 'package:flutter/material.dart';
 import '../services/log_service.dart';
 import '../Widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
-import 'category_screen.dart';
+import 'category.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController usernameController =
+      TextEditingController(); // Tambahkan controller
+
+  @override
+  void dispose() {
+    usernameController
+        .dispose(); // Pastikan untuk dispose controller agar tidak ada memory leak
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +47,31 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 20),
             const CustomTextField(hintText: '#Guest0000000012', enabled: false),
             const SizedBox(height: 10),
-            const CustomTextField(hintText: 'username'),
+            CustomTextField(
+                controller: usernameController, hintText: 'Username'),
             const SizedBox(height: 20),
             CustomButton(
               text: 'Next',
               onPressed: () {
-                // Handle login
-                LogService.logger.d("Tombol di HomeScreen ditekan");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CategoryScreen()));
+                String username =
+                    usernameController.text.trim(); // Ambil input user
+                LogService.logger.d("Tombol Next ditekan, Username: $username");
+
+                if (username.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyChallengeScreen()),
+                  );
+                } else {
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(content: Text("Username tidak boleh kosong!")),
+                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CategoryScreen()),
+                  );
+                }
               },
             ),
           ],
