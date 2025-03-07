@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../services/log_service.dart';
 import '../Widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
-import 'category.dart';
+import 'category_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -18,7 +18,8 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      width: double.infinity,
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
@@ -32,15 +33,16 @@ class CategoryCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 40, color: isSelected ? Colors.white : Colors.black),
+              Icon(icon,
+                  size: 40, color: isSelected ? Colors.white : Colors.black),
               const SizedBox(height: 10),
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : Colors.black,
-                ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: isSelected ? Colors.white : Colors.black,
+                    overflow: TextOverflow.ellipsis),
               ),
               const SizedBox(height: 5),
               Text(
