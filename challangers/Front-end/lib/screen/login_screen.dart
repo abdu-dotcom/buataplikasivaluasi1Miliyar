@@ -1,3 +1,4 @@
+import 'package:challangers/screen/main_screen.dart';
 import 'package:challangers/screen/my_challenge.dart';
 import 'package:flutter/material.dart';
 import '../services/log_service.dart';
@@ -60,8 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (username.isNotEmpty) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => MyChallengeScreen()),
+                    MaterialPageRoute(builder: (context) => MainScreen()),
                   );
                 } else {
                   // ScaffoldMessenger.of(context).showSnackBar(
