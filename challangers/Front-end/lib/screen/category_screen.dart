@@ -84,12 +84,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       itemBuilder: (context, index) {
                         final category = categoryList[index];
                         return CategoryCard(
-                          title: category.title,
-                          icon: category.icon,
-                          description: category.description,
-                          isSelected: selectedCategory == category.title,
-                          onTap: () =>
-                              setState(() => selectedCategory = category.title),
+                          title: category.categoryName,
+                          icon: category.categoryImg,
+                          description: category.categoryDesc,
+                          isSelected: selectedCategory == category.categoryName,
+                          onTap: () => setState(
+                              () => selectedCategory = category.categoryName),
                         );
                       },
                     ),

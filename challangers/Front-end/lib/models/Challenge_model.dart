@@ -1,41 +1,63 @@
-class ChallengeModel {
-  final String category;
-  final String imageUrl;
-  final String title;
-  final double progress;
-  final String userId;
-  final String description;
+class Challenge {
+  final int challengeId;
+  final String challengeName;
+  final String challengeDescription;
+  final String challengeLevel;
+  final int challengeParticipation;
+  final int challengeParticipationProgress;
+  final int challengeParticipationFinished;
+  final int challengeParticipationFailed;
+  final int categoriId;
+  final DateTime createAt;
+  final DateTime updateAt;
 
-  ChallengeModel({
-    required this.category,
-    required this.imageUrl,
-    required this.title,
-    required this.progress,
-    required this.userId,
-    required this.description,
+  Challenge({
+    required this.challengeId,
+    required this.challengeName,
+    required this.challengeDescription,
+    required this.challengeLevel,
+    required this.challengeParticipation,
+    required this.challengeParticipationProgress,
+    required this.challengeParticipationFinished,
+    required this.challengeParticipationFailed,
+    required this.categoriId,
+    required this.createAt,
+    required this.updateAt,
   });
 
-  // Convert object to Map<String, dynamic>
-  Map<String, dynamic> toJson() {
-    return {
-      'category': category,
-      'imageUrl': imageUrl,
-      'title': title,
-      'progress': progress,
-      'userId': userId,
-      'description': description,
-    };
+  /// Convert Map to Object (Deserialization)
+  factory Challenge.fromMap(Map<String, dynamic> map) {
+    return Challenge(
+      challengeId: map['challengeId'] as int,
+      challengeName: map['challengeName'] as String,
+      challengeDescription: map['challengeDescription'] as String,
+      challengeLevel: map['challengeLevel'] as String,
+      challengeParticipation: map['challengeParticipation'] as int,
+      challengeParticipationProgress:
+          map['challengeParticipationProgress'] as int,
+      challengeParticipationFinished:
+          map['challengeParticipationFinished'] as int,
+      challengeParticipationFailed: map['challengeParticipationFailed'] as int,
+      categoriId: map['categoriId'] as int,
+      createAt: DateTime.parse(map['createAt']),
+      updateAt: DateTime.parse(map['updateAt']),
+    );
   }
 
-  // Convert Map<String, dynamic> to object
-  factory ChallengeModel.fromJson(Map<String, dynamic> json) {
-    return ChallengeModel(
-      category: json['category'],
-      imageUrl: json['imageUrl'],
-      title: json['title'],
-      progress: (json['progress'] as num).toDouble(),
-      userId: json['userId'],
-      description: json['description'],
-    );
+  /// Convert Object to Map (Serialization)
+  Map<String, dynamic> toMap() {
+    return {
+      'challengeId': challengeId,
+      'challengeName': challengeName,
+      'challengeDescription': challengeDescription,
+      'challengeLevel': challengeLevel,
+      'challengeParticipation': challengeParticipation,
+      'challengeParticipationProgress': challengeParticipationProgress,
+      'challengeParticipationFinished': challengeParticipationFinished,
+      'challengeParticipationFailed': challengeParticipationFailed,
+      'categoriId': categoriId,
+      'createAt': createAt.toIso8601String(),
+      'updateAt': updateAt.toIso8601String(),
+    };
   }
 }
