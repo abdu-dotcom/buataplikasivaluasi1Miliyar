@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ChallengeCard extends StatelessWidget {
   final ChallengeModel challenge;
 
-  const ChallengeCard({Key? key, required this.challenge}) : super(key: key);
+  const ChallengeCard({super.key, required this.challenge});
 
   @override
   Widget build(BuildContext context) {

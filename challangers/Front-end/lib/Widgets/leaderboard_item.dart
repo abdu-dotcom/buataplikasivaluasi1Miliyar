@@ -2,9 +2,10 @@ import 'package:challangers/models/leaderboard_model.dart';
 import 'package:flutter/material.dart';
 
 class LeaderboardItem extends StatelessWidget {
-  final LeaderboardModel leaderboardModel; // Properti yang benar
+  final LeaderboardModel leaderboardModel; // Pastikan nama variabel ini benar
 
-  const LeaderboardItem({super.key, required this.leaderboardModel});
+  const LeaderboardItem(
+      {super.key, required this.leaderboardModel}); // Perbaiki di sini
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +14,15 @@ class LeaderboardItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundImage:
-              AssetImage('assets/images/sample_challenge.png'), // Perbaikan
+          backgroundImage: NetworkImage("as"), // ✅ Pastikan ada data gambar
         ),
         title: Text(
-          leaderboardModel.userId, // Perbaikan
+          leaderboardModel.userId, // ✅ Perbaiki akses nama
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: Text('GATAUUU 1Challenges Completed'), // Perbaikan
+        subtitle: Text('Challenges Completed'), // ✅ Benar
         trailing: Text(
-          'RANKKKK', // Perbaikan
+          '#asdasd', // ✅ Pastikan ada rank
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),

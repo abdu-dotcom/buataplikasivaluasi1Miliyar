@@ -1,21 +1,23 @@
-import 'package:challangers/data/leaderhboard.dart';
-import 'package:challangers/models/leaderboard_model.dart';
+import 'package:challangers/Widgets/leaderboard_item.dart';
+import 'package:challangers/data/leaderboard.dart';
 import 'package:flutter/material.dart';
-import '../widgets/leaderboard_item.dart';
 
 class LeaderboardScreen extends StatelessWidget {
-  const LeaderboardScreen({super.key});
+  const LeaderboardScreen({super.key}); // ✅ Tambahkan const dan super.key
 
   @override
   Widget build(BuildContext context) {
-    List<LeaderboardModel> leaderboard = sampleLeaderboard;
     return Scaffold(
-        appBar: AppBar(title: const Text('Leaderboard')),
-        body: ListView.builder(
-          itemCount: leaderboard.length,
-          itemBuilder: (context, index) {
-            return LeaderboardItem(user: leaderboard[index]);
-          },
-        ));
+      appBar: AppBar(title: const Text("Leaderboard")),
+      body: ListView.builder(
+        itemCount:
+            sampleLeaderboard.length, // ✅ Langsung pakai sampleLeaderboard
+        itemBuilder: (context, index) {
+          return LeaderboardItem(
+            leaderboardModel: sampleLeaderboard[index],
+          ); // ✅ Pastikan sesuai
+        },
+      ),
+    );
   }
 }

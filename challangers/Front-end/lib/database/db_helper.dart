@@ -1,6 +1,6 @@
+import 'package:challangers/models/challenge_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../models/challenge.dart';
 
 class DatabaseHelper {
   static Database? _database;
@@ -29,15 +29,15 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> insertChallenge(Challenge challenge) async {
+  Future<int> insertChallenge(ChallengeModel challenge) async {
     final db = await database;
     return await db.insert(_tableName, challenge.toMap());
   }
 
-  Future<List<Challenge>> getChallenges() async {
+  Future<List<ChallengeModel>> getChallenges() async {
     final db = await database;
     List<Map<String, dynamic>> result = await db.query(_tableName);
-    return result.map((json) => Challenge.fromMap(json)).toList();
+    return result.map((json) => ChallengeModel.fromMap(json)).toList();
   }
 
   Future<int> deleteChallenge(int id) async {

@@ -1,5 +1,5 @@
 import 'package:challangers/screen/explore_screen.dart';
-import 'package:challangers/screen/my_challenge.dart';
+import 'package:challangers/screen/my_challenge_screen.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard_screen.dart';
 
