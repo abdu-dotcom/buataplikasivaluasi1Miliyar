@@ -1,4 +1,4 @@
-class Challenge {
+class ChallengeModel {
   final int challengeId;
   final String challengeName;
   final String challengeDescription;
@@ -11,7 +11,7 @@ class Challenge {
   final DateTime createAt;
   final DateTime updateAt;
 
-  Challenge({
+  ChallengeModel({
     required this.challengeId,
     required this.challengeName,
     required this.challengeDescription,
@@ -26,8 +26,8 @@ class Challenge {
   });
 
   /// Convert Map to Object (Deserialization)
-  factory Challenge.fromMap(Map<String, dynamic> map) {
-    return Challenge(
+  factory ChallengeModel.fromMap(Map<String, dynamic> map) {
+    return ChallengeModel(
       challengeId: map['challengeId'] as int,
       challengeName: map['challengeName'] as String,
       challengeDescription: map['challengeDescription'] as String,

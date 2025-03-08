@@ -9,8 +9,8 @@ final List<CategoryModel> categoryList = [
     categoryDesc: "Tetap aktif & raih kebugaran!",
   ),
   CategoryModel(
-    categoryId: 1,
-    categoryName: "Sports",
+    categoryId: 2,
+    categoryName: "Self Improvement",
     categoryImg: Icons.self_improvement,
     categoryDesc: "Develop your mind & skills!",
   )

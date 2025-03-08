@@ -1,6 +1,6 @@
-import 'package:challangers/models/Leaderboard.dart';
+import 'package:challangers/data/leaderhboard.dart';
+import 'package:challangers/models/leaderboard_model.dart';
 import 'package:flutter/material.dart';
-import '../services/leaderboard_service.dart';
 import '../widgets/leaderboard_item.dart';
 
 class LeaderboardScreen extends StatelessWidget {
@@ -8,9 +8,7 @@ class LeaderboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<LeaderboardModel> leaderboard =
-        LeaderboardService.getLeaderboardData();
-
+    List<LeaderboardModel> leaderboard = sampleLeaderboard;
     return Scaffold(
         appBar: AppBar(title: const Text('Leaderboard')),
         body: ListView.builder(

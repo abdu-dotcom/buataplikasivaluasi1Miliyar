@@ -1,33 +1,14 @@
+import 'package:challangers/data/challenge.dart';
 import 'package:challangers/models/challenge_model.dart';
 import 'package:flutter/material.dart';
 
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key? key}) : super(key: key);
 
-  final List<Map<String, dynamic>> challengeData = [
-    {
-      "category": "Sports",
-      "imageUrl": "https://via.placeholder.com/150",
-      "title": "Morning Run",
-      "progress": 0.75,
-      "userId": "GuestId00000012312",
-      "description": "I have completed one lorem ipsum sub-challenge."
-    },
-    {
-      "category": "Self Improvement",
-      "imageUrl": "https://via.placeholder.com/150",
-      "title": "Read a Book",
-      "progress": 0.50,
-      "userId": "GuestId00000067890",
-      "description": "Reading 'Atomic Habits' for 30 days challenge."
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
     // Ubah challengeData menjadi List<ChallengeModel>
-    List<ChallengeModel> challenges =
-        challengeData.map((data) => ChallengeModel.fromJson(data)).toList();
+    List<ChallengeModel> challenges = sampleChallenges;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -108,12 +89,12 @@ class ChallengeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              challenge.title,
+              challenge.challengeName,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text("Category: ${challenge.category}"),
-            Text("User: ${challenge.userId}"),
-            Text("Progress: ${(challenge.progress * 100).toStringAsFixed(0)}%"),
+            Text("Category: ${challenge.categoriId}"),
+            Text("User: NULL"),
+            Text("Progress: 100%"),
           ],
         ),
       ),
