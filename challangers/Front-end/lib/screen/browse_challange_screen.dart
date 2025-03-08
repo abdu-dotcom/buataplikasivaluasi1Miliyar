@@ -1,4 +1,4 @@
-import 'package:challangers/screen/challenge_detail.dart';
+import 'package:challangers/screen/challenge_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class BrowseChallengeScreen extends StatelessWidget {
