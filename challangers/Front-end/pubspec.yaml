@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: ^1.3.0
   sqflite: ^2.3.0
   path_provider: ^2.1.2
   logger: ^2.0.2  # Versi terbaru bisa dicek di pub.dev

@@ -1,4 +1,4 @@
-import 'package:challangers/Widgets/custom_button.dart';
+import '../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class MyChallengeScreen extends StatelessWidget {
@@ -41,6 +41,7 @@ class MyChallengeScreen extends StatelessWidget {
                       5, // Ubah sesuai jumlah tantangan yang ingin ditampilkan
                   itemBuilder: (context, index) {
                     return Card(
+                      color: Colors.white,
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

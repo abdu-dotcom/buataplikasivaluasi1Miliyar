@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:challangers/data/challenge.dart';
-import 'package:challangers/widgets/challenge_list_card.dart';
+import '../data/challenge.dart';
+import '../widgets/challenge_list_card.dart';
 
 class BrowseChallengeScreen extends StatelessWidget {
   const BrowseChallengeScreen({super.key});

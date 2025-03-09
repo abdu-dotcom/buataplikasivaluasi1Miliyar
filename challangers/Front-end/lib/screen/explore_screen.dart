@@ -1,5 +1,5 @@
-import 'package:challangers/data/challenge.dart';
-import 'package:challangers/models/challenge_model.dart';
+import '../data/challenge.dart';
+import '../models/challenge_model.dart';
 import 'package:flutter/material.dart';
 
 class ExploreScreen extends StatelessWidget {

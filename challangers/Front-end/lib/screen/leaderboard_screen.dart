@@ -1,5 +1,5 @@
-import 'package:challangers/Widgets/leaderboard_item.dart';
-import 'package:challangers/data/leaderboard.dart';
+import '../Widgets/leaderboard_item.dart';
+import '..//data/leaderboard.dart';
 import 'package:flutter/material.dart';
 
 class LeaderboardScreen extends StatelessWidget {

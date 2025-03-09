@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SubChallengeList extends StatelessWidget {
   final List<Map<String, String>> subChallenges = List.generate(
-    5,
+    10,
     (index) => {
       "title": "Subs Challenge ${index + 1}",
       "xp": "20 XP",
@@ -11,9 +11,8 @@ class SubChallengeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: subChallenges.length,
-      itemBuilder: (context, index) {
+    return Column(
+      children: subChallenges.map((subChallenge) {
         return Card(
           color: Colors.grey[200],
           elevation: 0,
@@ -21,16 +20,16 @@ class SubChallengeList extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 4),
           child: ListTile(
             title: Text(
-              subChallenges[index]["title"]!,
+              subChallenge["title"]!,
               style: TextStyle(fontSize: 14, color: Colors.black),
             ),
             trailing: Text(
-              subChallenges[index]["xp"]!,
+              subChallenge["xp"]!,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ),
         );
-      },
+      }).toList(),
     );
   }
 }

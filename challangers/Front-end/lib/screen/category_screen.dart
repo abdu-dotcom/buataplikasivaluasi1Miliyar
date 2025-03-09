@@ -1,7 +1,7 @@
-import 'package:challangers/Widgets/category_card.dart';
-import 'package:challangers/data/category.dart';
-import 'package:challangers/screen/browse_challange_screen.dart';
-import 'package:challangers/widgets/custom_button.dart';
+import '../Widgets/category_card.dart';
+import '../data/category.dart';
+import '../screen/browse_challange_screen.dart';
+import '../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatefulWidget {

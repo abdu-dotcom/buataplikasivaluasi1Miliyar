@@ -1,5 +1,5 @@
-import 'package:challangers/screen/explore_screen.dart';
-import 'package:challangers/screen/my_challenge_screen.dart';
+import 'explore_screen.dart';
+import 'my_challenge_screen.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard_screen.dart';
 
@@ -21,9 +21,17 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   void _onItemTapped(int index) {
+    debugPrint("Tapped Index: $index");
     setState(() {
       _selectedIndex = index; // Update index halaman aktif
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    assert(
+        _screens.isNotEmpty, "Screens list must not be empty!"); // ✅ Debugging
   }
 
   @override
@@ -31,21 +39,32 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _screens[_selectedIndex], // Tampilkan halaman yang sesuai
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped, // Panggil fungsi saat item diklik
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: Icon(Icons.home),
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: Icon(Icons.search),
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard),
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: Icon(Icons.leaderboard),
+            ),
             label: "",
           ),
         ],
