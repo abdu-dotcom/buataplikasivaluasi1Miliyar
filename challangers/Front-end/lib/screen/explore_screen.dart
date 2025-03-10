@@ -14,7 +14,9 @@ class ExploreScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Explore"),
+        automaticallyImplyLeading: false, // ✅ Hilangkan tombol back
         backgroundColor: Colors.white,
+        scrolledUnderElevation: 0, // ✅ Mencegah perubahan warna saat scroll
         elevation: 0,
         titleTextStyle: const TextStyle(
             fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
@@ -82,6 +84,7 @@ class ChallengeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16),

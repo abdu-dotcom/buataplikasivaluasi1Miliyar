@@ -44,25 +44,27 @@ class _MainScreenState extends State<MainScreen> {
         onTap: _onItemTapped, // Panggil fungsi saat item diklik
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
+        selectedFontSize: 0, // ✅ Hilangkan ruang untuk teks
+        unselectedFontSize: 0, // ✅ Hilangkan ruang untuk teks
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
+              padding: EdgeInsets.only(bottom: 0),
               child: Icon(Icons.home),
             ),
             label: "",
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
+              padding: EdgeInsets.only(bottom: 0),
               child: Icon(Icons.search),
             ),
             label: "",
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
+              padding: EdgeInsets.only(bottom: 0),
               child: Icon(Icons.leaderboard),
             ),
             label: "",

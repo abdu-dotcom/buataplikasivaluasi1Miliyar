@@ -8,7 +8,12 @@ class LeaderboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leaderboard")),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text("Leaderboard"),
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: false, // ✅ Hilangkan tombol back
+      ),
       body: ListView.builder(
         itemCount:
             sampleLeaderboard.length, // ✅ Langsung pakai sampleLeaderboard
