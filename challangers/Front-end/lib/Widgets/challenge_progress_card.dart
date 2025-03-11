@@ -11,7 +11,7 @@ class ChallengeCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       margin: EdgeInsets.symmetric(vertical: 12),
-      elevation: 0.5,
+      elevation: 0.8,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
