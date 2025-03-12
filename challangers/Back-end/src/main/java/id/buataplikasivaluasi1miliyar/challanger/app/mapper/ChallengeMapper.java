@@ -17,7 +17,7 @@ public interface ChallengeMapper {
     @Mapping(source = "challengeId", target = "id")
     @Mapping(source = "challengeName", target = "challenge_name")
     @Mapping(source = "challengeDescription", target = "challenge_description")
-    @Mapping(source = "challengeLevel", target = "challenge_lavel")
+    @Mapping(source = "challengeLevel", target = "challenge_level")
     @Mapping(source = "challengeParticipation", target = "challenge_participation")
     @Mapping(source = "challengeParticipationOnProgress", target = "challenge_participation_onprogress")
     @Mapping(source = "challengeParticipationFinished", target = "challenge_participation_finished")
@@ -37,7 +37,7 @@ public interface ChallengeMapper {
     @Mapping(source = "id", target = "challengeId")
     @Mapping(source = "challenge_name", target = "challengeName")
     @Mapping(source = "challenge_description", target = "challengeDescription")
-    @Mapping(source = "challenge_lavel", target = "challengeLevel")
+    @Mapping(source = "challenge_level", target = "challengeLevel")
     @Mapping(source = "challenge_participation", target = "challengeParticipation")
     @Mapping(source = "challenge_participation_onprogress", target = "challengeParticipationOnProgress")
     @Mapping(source = "challenge_participation_finished", target = "challengeParticipationFinished")
@@ -52,6 +52,8 @@ public interface ChallengeMapper {
     @Mapping(source = "challengeSubId", target = "challenge_sub_id")
     @Mapping(source = "challengeSubName", target = "challenge_sub_name")
     @Mapping(source = "challengeSubPoint", target = "challenge_sub_point")
+    @Mapping(source = "challengeSubTipeDeadline", target = "challenge_sub_tipe_deadline")
+    @Mapping(source = "challengeSubDeadlineTime", target = "challenge_sub_deadline_time")
     ChallengeSub toSubEntity(ChallengeSubDto challengeSubDto);
 
     @InheritInverseConfiguration

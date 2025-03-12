@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,13 @@ import lombok.Setter;
 @JsonPropertyOrder
 public class ChallengeSubDto {
     @Id
-    private int challengeSubId;
-    private String challengeSubName;
-    private int challengeSubPoint;
+    private Integer challengeSubId;
+    private String  challengeSubName;
+    private Integer challengeSubPoint;
+    private String  challengeSubTipeDeadline;
+    private Integer challengeSubDeadlineTime;
+
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private UserChallengeProgressDto challengeSubProgress;
 }

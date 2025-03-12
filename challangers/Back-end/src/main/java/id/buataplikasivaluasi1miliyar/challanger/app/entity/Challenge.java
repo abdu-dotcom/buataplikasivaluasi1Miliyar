@@ -23,7 +23,7 @@ public class Challenge {
     private Integer id;
     private String challenge_name;
     private String challenge_description;
-    private String challenge_lavel;
+    private String challenge_level;
     private Integer challenge_participation;
     private Integer challenge_participation_onprogress;
     private Integer challenge_participation_finished;

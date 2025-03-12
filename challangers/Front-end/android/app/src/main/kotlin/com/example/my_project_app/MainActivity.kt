@@ -1,4 +1,4 @@
-package com.example.challangers
+package com.example.my_project_app
 
 import io.flutter.embedding.android.FlutterActivity
 

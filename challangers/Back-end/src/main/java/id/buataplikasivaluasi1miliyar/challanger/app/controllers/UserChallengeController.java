@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,12 @@ public class UserChallengeController {
     @GetMapping("/{userId}")
     public ResponseEntity<List<UserChallengeDto>> getUserChallenges(@PathVariable String userId) {
         List<UserChallengeDto> challenges = service.getAllChallengesByUser(userId);
+        return ResponseEntity.ok(challenges);
+    }
+
+    @GetMapping("/{userId}/challenge/{challengeId}")
+    public ResponseEntity<UserChallengeDetailDto> getUserChallenges(@PathVariable String userId, @PathVariable Integer challengeId) {
+        UserChallengeDetailDto challenges = service.getUserChallengeDetail(userId, challengeId);
         return ResponseEntity.ok(challenges);
     }
 }

@@ -1,86 +1,138 @@
-import 'package:challangers/screen/browse_challange.dart';
+import '../Widgets/category_card.dart';
+import '../data/category.dart';
+import '../screen/browse_challange_screen.dart';
+import '../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Pilih Kategori"),
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child:  Container( 
-          padding: EdgeInsets.all(16.0),
-          child: GridView.count(
-          crossAxisCount: 2, // Menampilkan dua kolom
-          crossAxisSpacing: 16, // Spasi antar kolom
-          mainAxisSpacing: 16, // Spasi antar baris
-          shrinkWrap: true,
-          children: [
-            // Kategori Sport
-            CategoryBox(
-              categoryName: 'Sport',
-              onTap: () {
-                // Aksi saat kategori Sport dipilih
-                print("Kategori Sport dipilih");
-                // Navigasi ke halaman sport atau lainnya
-              },
-            ),
-            // Kategori Self Improvement
-            CategoryBox(
-              categoryName: 'Self Improvement',
-              onTap: () {
-                // Aksi saat kategori Self Improvement dipilih
-                print("Kategori Self Improvement dipilih");
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BrowseChallenge()));
-                // Navigasi ke halaman self improvement atau lainnya
-              },
-            ),
-          ],
-        ),
-          ),
-      ),
-      ),
-    );
-  }
+  _CategoryScreenState createState() => _CategoryScreenState();
 }
 
-// Widget untuk menampilkan kotak kategori
-class CategoryBox extends StatelessWidget {
-  final String categoryName;
-  final VoidCallback onTap;
+class _CategoryScreenState extends State<CategoryScreen> {
+  String? selectedCategory;
 
-  const CategoryBox({required this.categoryName, required this.onTap});
+  void selectCategory(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 4,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            categoryName,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+    bool isButtonEnabled = selectedCategory != null;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          /// 🔹 Bagian atas: Logo & Icon
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.grey,
+                  child: Text("Logo"),
+                ),
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.grey,
+                  child: Text("Icon"),
+                ),
+              ],
             ),
           ),
-        ),
+
+          /// 🔹 Bagian Scrollable (Teks + Grid)
+          Expanded(
+              child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Choose Your Path to a Better You",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "Pilih area fokus untuk memulai perjalanan tantanganmu dan raih kebiasaan positif!",
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 54), // Jarak sebelum Grid
+
+                    /// 🔹 GridView
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                      ),
+                      itemCount: categoryList.length,
+                      itemBuilder: (context, index) {
+                        final category = categoryList[index];
+                        return CategoryCard(
+                          title: category.categoryName,
+                          icon: category.categoryImg,
+                          description: category.categoryDesc,
+                          isSelected: selectedCategory == category.categoryName,
+                          onTap: () => setState(
+                              () => selectedCategory = category.categoryName),
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 54),
+
+                    /// 🔹 Teks Motivasi
+                    const Text(
+                      "Tantang dirimu hari ini!\nRaih pencapaian baru setiap hari",
+                      textAlign: TextAlign.center,
+                    ),
+
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            ),
+          )),
+
+          /// 🔹 Bagian bawah: Tombol (Tetap di bawah layar)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: CustomButton(
+              backgroundColor: isButtonEnabled
+                  ? Colors.black
+                  : const Color.fromARGB(255, 233, 233, 233),
+              text: "Select & Continue",
+              textColor: isButtonEnabled
+                  ? Colors.white
+                  : const Color.fromARGB(255, 29, 29, 29),
+              onPressed: isButtonEnabled
+                  ? () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BrowseChallengeScreen(),
+                        ),
+                      );
+                    }
+                  : () {},
+            ),
+          ),
+        ],
       ),
     );
   }
