@@ -39,10 +39,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     // ✅ Ambil Challenge + Sub-Challenges by Category Id(GET)
-    public List<ChallengeDetailDto> getChallengeByCategoryId(Integer categoryId) {
-        List<ChallengeDetailDto> challenge = challengeRepository.findByCategoryId(categoryId)
+    public List<ChallengeDto> getChallengeByCategoryId(Integer categoryId) {
+        List<ChallengeDto> challenge = challengeRepository.findByCategoryId(categoryId)
                 .stream()
-                .map(challengeMapper::toChallengeDetailDto) // Konversi dari User ke UserDto
+                .map(challengeMapper::toChallengeDto) // Konversi dari User ke UserDto
                 .collect(Collectors.toList());
 
         return challenge;

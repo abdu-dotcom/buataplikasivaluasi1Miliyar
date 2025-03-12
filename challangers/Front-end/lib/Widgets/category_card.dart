@@ -1,8 +1,9 @@
+import 'package:challangers/utils/IconHelper.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String icon;
   final String description;
   final bool isSelected;
   final VoidCallback onTap;
@@ -33,7 +34,7 @@ class CategoryCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon,
+              Icon(IconHelper.getIconFromString(icon),
                   size: 40, color: isSelected ? Colors.white : Colors.black),
               const SizedBox(height: 10),
               Text(

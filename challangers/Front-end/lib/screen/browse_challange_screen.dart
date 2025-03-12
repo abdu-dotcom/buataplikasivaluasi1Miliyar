@@ -1,9 +1,27 @@
+import 'package:challangers/provides/challenge_provide.dart';
 import 'package:flutter/material.dart';
-import '../data/challenge.dart';
+import 'package:provider/provider.dart';
 import '../widgets/challenge_list_card.dart';
 
-class BrowseChallengeScreen extends StatelessWidget {
-  const BrowseChallengeScreen({super.key});
+class BrowseChallengeScreen extends StatefulWidget {
+  final int categoryId; // ⬅ Tambahkan ini
+
+  const BrowseChallengeScreen({super.key, required this.categoryId});
+
+  @override
+  State<BrowseChallengeScreen> createState() => _BrowseChallengeScreenState();
+}
+
+class _BrowseChallengeScreenState extends State<BrowseChallengeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Memanggil fetchChallenges() saat layar pertama kali dibuka
+    Future.microtask(() =>
+        Provider.of<ChallengeProvider>(context, listen: false)
+            .fetchChallengeByCategoryAndId(widget.categoryId));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +54,23 @@ class BrowseChallengeScreen extends StatelessWidget {
 
             // Expanded untuk daftar tantangan
             Expanded(
-              child: ListView.builder(
-                itemCount: sampleChallenges.length,
-                itemBuilder: (context, index) {
-                  return ChallengeListCard(
-                    challenge: sampleChallenges[index],
+              child: Consumer<ChallengeProvider>(
+                builder: (context, provider, child) {
+                  if (provider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (provider.challenges.isEmpty) {
+                    return const Center(child: Text("No Challenges Available"));
+                  }
+
+                  return ListView.builder(
+                    itemCount: provider.challenges.length,
+                    itemBuilder: (context, index) {
+                      return ChallengeListCard(
+                        challenge: provider.challenges[index],
+                      );
+                    },
                   );
                 },
               ),

@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-
 class CategoryModel {
   final int categoryId;
   final String categoryName;
   final String categoryDesc;
-  final IconData categoryImg;
+  final String categoryImg;
 
   CategoryModel({
     required this.categoryId,
@@ -16,10 +14,10 @@ class CategoryModel {
   /// Convert Map to Object (Deserialization)
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      categoryId: map['categoryId'] as int,
-      categoryName: map['categoryName'] as String,
-      categoryDesc: map['categoryDesc'] as String,
-      categoryImg: map['categoryImg'] as IconData,
+      categoryId: map['category_id'] as int,
+      categoryName: map['category_name'] as String,
+      categoryDesc: map['category_desc'] as String,
+      categoryImg: map['category_img'],
     );
   }
 

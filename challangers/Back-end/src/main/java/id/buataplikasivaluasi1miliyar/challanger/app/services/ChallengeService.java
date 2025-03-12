@@ -8,7 +8,7 @@ import java.util.List;
 public interface ChallengeService {
     List<ChallengeDto> getChallengers();
 
-    List<ChallengeDetailDto> getChallengeByCategoryId(Integer categori_id);
+    List<ChallengeDto> getChallengeByCategoryId(Integer categori_id);
 
     ChallengeDetailDto getChallengeById(Integer challenge_id);
 }

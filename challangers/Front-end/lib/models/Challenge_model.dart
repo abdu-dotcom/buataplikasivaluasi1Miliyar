@@ -27,6 +27,7 @@ class ChallengeModel {
 
   /// Convert Map to Object (Deserialization)
   factory ChallengeModel.fromMap(Map<String, dynamic> map) {
+    // ✅ Tambahkan ini
     return ChallengeModel(
       challengeId: map['challengeId'] as int,
       challengeName: map['challengeName'] as String,
@@ -34,13 +35,13 @@ class ChallengeModel {
       challengeLevel: map['challengeLevel'] as String,
       challengeParticipation: map['challengeParticipation'] as int,
       challengeParticipationProgress:
-          map['challengeParticipationProgress'] as int,
+          map['challengeParticipationOnProgress'] as int,
       challengeParticipationFinished:
           map['challengeParticipationFinished'] as int,
       challengeParticipationFailed: map['challengeParticipationFailed'] as int,
-      categoriId: map['categoriId'] as int,
-      createAt: DateTime.parse(map['createAt']),
-      updateAt: DateTime.parse(map['updateAt']),
+      categoriId: map['categoryId'] as int,
+      createAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      updateAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
     );
   }
 
