@@ -27,9 +27,9 @@ public class ChallengeController {
         return new ResponseEntity<>(challengers, HttpStatus.OK);
     }
     @GetMapping("/challenger/category/{categoryId}")
-    public  ResponseEntity<List<ChallengeDetailDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
+    public  ResponseEntity<List<ChallengeDto>> getChallengerByCategoryId(@PathVariable("categoryId") Integer categoryId) {
         System.out.println("Id: " + categoryId);
-        List<ChallengeDetailDto> challengeWithSub =  challengeService.getChallengeByCategoryId(categoryId);
+        List<ChallengeDto> challengeWithSub =  challengeService.getChallengeByCategoryId(categoryId);
         return new ResponseEntity<>(challengeWithSub, HttpStatus.OK);
     }
     @GetMapping("/challenger/{challenge_id}")
