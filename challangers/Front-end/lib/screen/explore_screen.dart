@@ -79,14 +79,26 @@ class _FilterButtons extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsetsDirectional.symmetric(vertical: 18),
+                      padding: EdgeInsetsDirectional.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text("Other People"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text("Other People")
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(width: 5),
@@ -94,14 +106,26 @@ class _FilterButtons extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsetsDirectional.symmetric(vertical: 18),
+                      padding: EdgeInsetsDirectional.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                       backgroundColor: Colors.grey[350],
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text("My Progress"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person_2_outlined,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text("My Progress")
+                      ],
+                    ),
                   ),
                 ),
               ],

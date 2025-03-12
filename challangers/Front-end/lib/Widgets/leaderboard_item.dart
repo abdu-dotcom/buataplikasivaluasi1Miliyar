@@ -1,30 +1,73 @@
-import 'package:challangers/models/leaderboard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:challangers/models/leaderboard_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeaderboardItem extends StatelessWidget {
-  final LeaderboardModel leaderboardModel; // Pastikan nama variabel ini benar
+  final LeaderboardModel leaderboardModel;
 
-  const LeaderboardItem(
-      {super.key, required this.leaderboardModel}); // Perbaiki di sini
+  const LeaderboardItem({
+    super.key,
+    required this.leaderboardModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(249, 249, 249, 249),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage("as"), // ✅ Pastikan ada data gambar
+        contentPadding: EdgeInsets.zero, // Hilangkan padding default
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (leaderboardModel.leaderboardId <= 3) //
+              SizedBox(
+                width: 35,
+                child: Icon(
+                  FontAwesomeIcons.medal,
+                  size: 20,
+                ),
+              ) //
+            else
+              SizedBox(
+                width: 35, // Lebar tetap untuk rank agar rapi
+                child: Text(
+                  leaderboardModel.leaderboardId.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            const SizedBox(width: 10), // Jarak antara rank dan avatar
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.grey[300],
+                  child: const Icon(Icons.person, color: Colors.black54),
+                ),
+              ],
+            ),
+          ],
         ),
         title: Text(
-          leaderboardModel.userId, // ✅ Perbaiki akses nama
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          leaderboardModel.userId,
+          style: const TextStyle(fontSize: 14),
         ),
-        subtitle: Text('Challenges Completed'), // ✅ Benar
-        trailing: Text(
-          '#asdasd', // ✅ Pastikan ada rank
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        trailing: SizedBox(
+          width: 70, // Lebar tetap supaya angka tetap sejajar
+          child: Text(
+            "${leaderboardModel.score} pts",
+            textAlign: TextAlign.right,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
