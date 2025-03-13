@@ -1,13 +1,11 @@
+import 'package:challangers/models/challenge_sub_model.dart';
 import 'package:flutter/material.dart';
 
 class SubChallengeList extends StatelessWidget {
-  final List<Map<String, String>> subChallenges = List.generate(
-    10,
-    (index) => {
-      "title": "Subs Challenge ${index + 1}",
-      "xp": "20 XP",
-    },
-  );
+  final List<ChallengeSubModel> subChallenges;
+
+  const SubChallengeList({Key? key, required this.subChallenges})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +15,15 @@ class SubChallengeList extends StatelessWidget {
           color: Colors.grey[200],
           elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          margin: EdgeInsets.symmetric(vertical: 4),
+          margin: const EdgeInsets.symmetric(vertical: 4),
           child: ListTile(
             title: Text(
-              subChallenge["title"]!,
-              style: TextStyle(fontSize: 14, color: Colors.black),
+              subChallenge.challengeSubName,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
             ),
             trailing: Text(
-              subChallenge["xp"]!,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              "${subChallenge.challengeSubPoint} XP",
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ),
         );

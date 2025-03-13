@@ -1,15 +1,20 @@
+import 'dart:convert';
+
+import 'package:challangers/models/challenge_sub_model.dart';
+
 class ChallengeModel {
   final int challengeId;
   final String challengeName;
   final String challengeDescription;
   final String challengeLevel;
   final int challengeParticipation;
-  final int challengeParticipationProgress;
+  final int challengeParticipationOnProgress;
   final int challengeParticipationFinished;
   final int challengeParticipationFailed;
-  final int categoriId;
-  final DateTime createAt;
-  final DateTime updateAt;
+  final int categoryId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final List<ChallengeSubModel>? subChallenges; // Bisa null
 
   ChallengeModel({
     required this.challengeId,
@@ -17,35 +22,35 @@ class ChallengeModel {
     required this.challengeDescription,
     required this.challengeLevel,
     required this.challengeParticipation,
-    required this.challengeParticipationProgress,
+    required this.challengeParticipationOnProgress,
     required this.challengeParticipationFinished,
     required this.challengeParticipationFailed,
-    required this.categoriId,
-    required this.createAt,
-    required this.updateAt,
+    required this.categoryId,
+    required this.createdAt,
+    required this.updatedAt,
+    this.subChallenges,
   });
-
-  /// Convert Map to Object (Deserialization)
-  factory ChallengeModel.fromMap(Map<String, dynamic> map) {
-    // ✅ Tambahkan ini
+  factory ChallengeModel.fromMap(Map<String, dynamic> json) {
     return ChallengeModel(
-      challengeId: map['challengeId'] as int,
-      challengeName: map['challengeName'] as String,
-      challengeDescription: map['challengeDescription'] as String,
-      challengeLevel: map['challengeLevel'] as String,
-      challengeParticipation: map['challengeParticipation'] as int,
-      challengeParticipationProgress:
-          map['challengeParticipationOnProgress'] as int,
+      challengeId: json['challengeId'] ?? 0,
+      challengeName: json['challengeName'] ?? '',
+      challengeDescription: json['challengeDescription'] ?? '',
+      challengeLevel: json['challengeLevel'] ?? '',
+      challengeParticipation: json['challengeParticipation'] ?? 0,
+      challengeParticipationOnProgress:
+          json['challengeParticipationOnProgress'] ?? 0,
       challengeParticipationFinished:
-          map['challengeParticipationFinished'] as int,
-      challengeParticipationFailed: map['challengeParticipationFailed'] as int,
-      categoriId: map['categoryId'] as int,
-      createAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updateAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+          json['challengeParticipationFinished'] ?? 0,
+      challengeParticipationFailed: json['challengeParticipationFailed'] ?? 0,
+      categoryId: json['categoryId'] ?? 0,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] ?? 0),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] ?? 0),
+      subChallenges: (json['subChallenges'] as List? ?? [])
+          .map(
+              (item) => ChallengeSubModel.fromMap(item as Map<String, dynamic>))
+          .toList(),
     );
   }
-
-  /// Convert Object to Map (Serialization)
   Map<String, dynamic> toMap() {
     return {
       'challengeId': challengeId,
@@ -53,12 +58,68 @@ class ChallengeModel {
       'challengeDescription': challengeDescription,
       'challengeLevel': challengeLevel,
       'challengeParticipation': challengeParticipation,
-      'challengeParticipationProgress': challengeParticipationProgress,
+      'challengeParticipationOnProgress': challengeParticipationOnProgress,
       'challengeParticipationFinished': challengeParticipationFinished,
       'challengeParticipationFailed': challengeParticipationFailed,
-      'categoriId': categoriId,
-      'createAt': createAt.toIso8601String(),
-      'updateAt': updateAt.toIso8601String(),
+      'categoryId': categoryId,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      'subChallenges': subChallenges?.map((item) => item.toMap()).toList(),
     };
   }
+
+  ChallengeModel copyWith({
+    int? challengeId,
+    String? challengeName,
+    String? challengeDescription,
+    String? challengeLevel,
+    int? challengeParticipation,
+    int? challengeParticipationOnProgress,
+    int? challengeParticipationFinished,
+    int? challengeParticipationFailed,
+    int? categoryId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<ChallengeSubModel>? subChallenges,
+  }) {
+    return ChallengeModel(
+      challengeId: challengeId ?? this.challengeId,
+      challengeName: challengeName ?? this.challengeName,
+      challengeDescription: challengeDescription ?? this.challengeDescription,
+      challengeLevel: challengeLevel ?? this.challengeLevel,
+      challengeParticipation:
+          challengeParticipation ?? this.challengeParticipation,
+      challengeParticipationOnProgress: challengeParticipationOnProgress ??
+          this.challengeParticipationOnProgress,
+      challengeParticipationFinished:
+          challengeParticipationFinished ?? this.challengeParticipationFinished,
+      challengeParticipationFailed:
+          challengeParticipationFailed ?? this.challengeParticipationFailed,
+      categoryId: categoryId ?? this.categoryId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      subChallenges: subChallenges ?? this.subChallenges,
+    );
+  }
+
+  static DateTime _parseDate(dynamic dateValue) {
+    if (dateValue == null) return DateTime.now();
+    if (dateValue is int) {
+      return DateTime.fromMillisecondsSinceEpoch(dateValue);
+    }
+    if (dateValue is String) {
+      try {
+        return DateTime.parse(dateValue);
+      } catch (e) {
+        return DateTime.now();
+      }
+    }
+    return DateTime.now();
+  }
 }
+
+// Fungsi helper untuk JSON
+ChallengeModel challengeModelFromJson(String str) =>
+    ChallengeModel.fromMap(json.decode(str));
+
+String challengeModelToJson(ChallengeModel data) => json.encode(data.toMap());

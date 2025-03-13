@@ -1,4 +1,5 @@
 import 'package:challangers/screen/challenge_detail_screen.dart';
+import 'package:challangers/services/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:challangers/models/challenge_model.dart';
 
@@ -17,12 +18,14 @@ class ChallengeListCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       child: InkWell(
         onTap: () {
-          print(
-              "Card clicked: ${challenge.challengeId} - ${challenge.challengeName}");
+          LogService.logger.d(
+              "Card clicked: challenge Id: ${challenge.challengeId} - ${challenge.challengeName}");
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChallengeDetailScreen(),
+              builder: (context) => ChallengeDetailScreen(
+                challengeId: challenge.challengeId,
+              ),
             ),
           );
         },
