@@ -85,7 +85,7 @@ class MyChallengeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      'Progress: ${challenge.challengeParticipationProgress}%',
+                                      'Progress: ${challenge.challengeParticipationOnProgress}%',
                                       style: const TextStyle(
                                           fontSize: 14, color: Colors.black),
                                     ),

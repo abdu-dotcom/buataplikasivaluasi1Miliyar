@@ -3,18 +3,16 @@ import 'package:challangers/models/challenge_sub_model.dart';
 final List<ChallengeSubModel> sampleChallengeSubs = [
   ChallengeSubModel(
     challengeSubId: 1,
-    challengeId: 1,
     challengeSubName: "Day 1: Push-ups & Squats",
     challengeSubPoint: 10,
     challengeSubTypeDeadline: "Daily",
-    challengeSubDeadlineTime: DateTime.now().add(Duration(days: 1)),
+    challengeSubDeadlineTime: 1,
   ),
   ChallengeSubModel(
     challengeSubId: 2,
-    challengeId: 1,
     challengeSubName: "Day 2: Planks & Sit-ups",
     challengeSubPoint: 15,
     challengeSubTypeDeadline: "Daily",
-    challengeSubDeadlineTime: DateTime.now().add(Duration(days: 2)),
+    challengeSubDeadlineTime: 2,
   ),
 ];

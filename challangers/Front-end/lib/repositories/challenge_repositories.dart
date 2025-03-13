@@ -11,4 +11,8 @@ class ChallengeRepository {
   Future<List<ChallengeModel>> getChallengesByCategoryId(int categoryId) async {
     return await _apiService.getChallengeByCategoryId(categoryId);
   }
+
+  Future<ChallengeModel?> getChallengesByChallengeId(int challengeId) async {
+    return await _apiService.getChallengeByChallengeId(challengeId);
+  }
 }

@@ -1,6 +1,11 @@
+import 'package:challangers/models/challenge_model.dart';
 import 'package:flutter/material.dart';
 
 class ChallengeInfoCard extends StatelessWidget {
+  final ChallengeModel challengeDetail;
+
+  const ChallengeInfoCard({super.key, required this.challengeDetail});
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -9,34 +14,37 @@ class ChallengeInfoCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _infoBox("1.5k", "Joined", boxWidth),
-        _infoBox("1.5k", "Progress", boxWidth),
-        _infoBox("1.5k", "Success", boxWidth),
-        _infoBox("1.5k", "Failed", boxWidth),
+        _infoBox(challengeDetail.challengeParticipation, "Joined", boxWidth),
+        _infoBox(challengeDetail.challengeParticipationOnProgress, "Progress",
+            boxWidth),
+        _infoBox(challengeDetail.challengeParticipationFinished, "Success",
+            boxWidth),
+        _infoBox(
+            challengeDetail.challengeParticipationFailed, "Failed", boxWidth),
       ],
     );
   }
 
-  Widget _infoBox(String value, String label, double width) {
+  Widget _infoBox(int value, String label, double width) {
     return Container(
       width: width,
-      height: 60, // Tambahkan tinggi agar tidak `MISSING`
-      padding: EdgeInsets.all(8),
+      height: 60,
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.grey[200],
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, // Pastikan center
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              value,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              value.toString(),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Flexible(
             child: Text(
               label,

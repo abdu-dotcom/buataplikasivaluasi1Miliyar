@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:challangers/models/category_model.dart';
 import 'package:challangers/models/challenge_model.dart';
 import 'package:dio/dio.dart';
@@ -25,12 +27,30 @@ class ApiService {
         options: Options(headers: {'Cache-Control': 'no-cache'}),
       );
 
-      print("data: ${response}");
+      // print("data: ${response}");
 
       if (response.statusCode == 200) {
         List data = response.data;
 
         return data.map((json) => ChallengeModel.fromMap(json)).toList();
+      } else {
+        throw Exception("Failed to fetch challenge");
+      }
+    } on DioException catch (e) {
+      throw Exception("Error fetching challenge: ${e.message}");
+    }
+  }
+
+  // 🔹 GET Challenge by Challenge Id (Menggunakan PathVariable)
+  Future<ChallengeModel> getChallengeByChallengeId(int challengeId) async {
+    try {
+      final response = await _dio.get(
+        'challenger/$challengeId',
+        options: Options(headers: {'Cache-Control': 'no-cache'}),
+      );
+
+      if (response.statusCode == 200) {
+        return ChallengeModel.fromMap(response.data);
       } else {
         throw Exception("Failed to fetch challenge");
       }
@@ -47,8 +67,6 @@ class ApiService {
         'categories',
         options: Options(headers: {'Cache-Control': 'no-cache'}),
       );
-
-      print("data: ${response}");
 
       if (response.statusCode == 200) {
         List data = response.data;
