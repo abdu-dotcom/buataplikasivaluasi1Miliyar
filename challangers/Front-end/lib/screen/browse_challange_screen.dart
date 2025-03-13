@@ -54,25 +54,30 @@ class _BrowseChallengeScreenState extends State<BrowseChallengeScreen> {
 
             // Expanded untuk daftar tantangan
             Expanded(
-              child: Consumer<ChallengeProvider>(
-                builder: (context, provider, child) {
-                  if (provider.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: Consumer<ChallengeProvider>(
+                  builder: (context, provider, child) {
+                    if (provider.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                  if (provider.challenges.isEmpty) {
-                    return const Center(child: Text("No Challenges Available"));
-                  }
+                    if (provider.challenges.isEmpty) {
+                      return const Center(
+                          child: Text("No Challenges Available"));
+                    }
 
-                  return ListView.builder(
-                    itemCount: provider.challenges.length,
-                    itemBuilder: (context, index) {
-                      return ChallengeListCard(
-                        challenge: provider.challenges[index],
-                      );
-                    },
-                  );
-                },
+                    return ListView.builder(
+                      itemCount: provider.challenges.length,
+                      itemBuilder: (context, index) {
+                        return ChallengeListCard(
+                          challenge: provider.challenges[index],
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
 

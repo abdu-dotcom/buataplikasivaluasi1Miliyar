@@ -1,5 +1,4 @@
 import 'package:challangers/Widgets/category_card.dart';
-import 'package:challangers/data/category.dart';
 import 'package:challangers/provides/category_provide.dart';
 import 'package:challangers/services/log_service.dart';
 import 'package:provider/provider.dart';
