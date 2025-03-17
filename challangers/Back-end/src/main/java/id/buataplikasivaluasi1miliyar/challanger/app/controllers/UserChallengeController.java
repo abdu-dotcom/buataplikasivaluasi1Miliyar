@@ -1,7 +1,9 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDetailDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeListResponseDTO;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,15 @@ public class UserChallengeController {
     private final UserChallengeService service;
 
     @PostMapping("/accept-challenge")
-    public ResponseEntity<UserChallengeDto> acceptChallenge(@RequestBody UserChallengeDto dto) {
-        UserChallengeDto result = service.acceptChallenge(dto);
+    public ResponseEntity<ChallengeJoinResponseDto
+            > acceptChallenge(@RequestBody ChallengeJoinRequestDto dto) {
+        ChallengeJoinResponseDto result = service.acceptChallenge(dto);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<UserChallengeDto>> getUserChallenges(@PathVariable String userId) {
-        List<UserChallengeDto> challenges = service.getAllChallengesByUser(userId);
+    public ResponseEntity<UserChallengeListResponseDTO> getUserChallenges(@PathVariable String userId) {
+        UserChallengeListResponseDTO challenges = service.getAllChallengesByUser(userId);
         return ResponseEntity.ok(challenges);
     }
 

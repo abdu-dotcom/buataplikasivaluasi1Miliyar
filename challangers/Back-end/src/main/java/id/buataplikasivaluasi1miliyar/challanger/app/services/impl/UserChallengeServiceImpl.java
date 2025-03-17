@@ -1,6 +1,8 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.services.impl;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.*;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
@@ -8,20 +10,27 @@ import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
+import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserChallengeServiceImpl implements UserChallengeService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserChallengeServiceImpl.class);
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeMapper challengeMapper;
@@ -29,26 +38,75 @@ public class UserChallengeServiceImpl implements UserChallengeService {
     private final UserChallengeMapper mapper;
 
     @Override
-    public UserChallengeDto acceptChallenge(UserChallengeDto dto) {
+    public ChallengeJoinResponseDto acceptChallenge(ChallengeJoinRequestDto dto) {
 
-        System.out.println(dto.getUserChallengeId());
-        System.out.println(dto.getStatus());
-        System.out.println(dto.getJoinedat());
-        System.out.println(dto.getUserId());
-       // init data new user
-        UserChallenge userChallenge = mapper.toEntity(dto);
+        // check user exists
+        String  isUserJoinedChallenge = isUserJoinedChallenge(dto);
+        if (Objects.equals(isUserJoinedChallenge, "true"))  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User telah join challenge");
+        // count challenge sub to get deadline
+        int numberOfChallengeDay = repository.getNumberOfChallengeDaysByChallengeId(dto.getChallengeId());
+        logger.info("=== [data numberOfChallengeDay] :" + "==>" + "["+ numberOfChallengeDay + "]");
 
+        // get deadline date
+        LocalDateTime dateNow = LocalDateTime.now();
+        LocalDateTime deadlineDate = dateNow.plusDays(numberOfChallengeDay);
+
+        logger.info("=== [data dateNow]             :" + "==>" + "["+ dateNow + "]");
+        logger.info("=== [data deadlineDate]        :" + "==>" + "["+ deadlineDate + "]");
+
+        // init data new user
+        UserChallenge userChallenge = mapper.toUserChallengeEntity(dto);
+        userChallenge.setStatus("Joined");
+        userChallenge.setJoinedat(dateNow);
+        userChallenge.setDeadlinedat(deadlineDate);
+
+        // save data
         UserChallenge saveUserChallenge = repository.save(userChallenge);
         repository.flush();
-        return mapper.toDTO(saveUserChallenge);
+
+        // mapped to dto
+        ChallengeJoinResponseDto userChallengeDto =  mapper.toChallengeJoinResponsetDto(saveUserChallenge);
+
+        // set value response
+        userChallengeDto.setJoinedat(DateFormatter.formatDateTime(dateNow));
+        // return response
+        return userChallengeDto;
     }
 
+    public String isUserJoinedChallenge(ChallengeJoinRequestDto dto){
+        // check di database
+        return  repository.getUserChallengeByUserIdAndChallengeId(dto.getUserId(), dto.getChallengeId());
+    };
+
     @Override
-    public List<UserChallengeDto> getAllChallengesByUser(String userId) {
-        return repository.findAll().stream()
-                .filter(challenge -> challenge.getUserId().equals(userId))
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
+    public UserChallengeListResponseDTO getAllChallengesByUser(String userId) {
+
+        UserChallengeListResponseDTO userChallengeListResponseDTO  = new UserChallengeListResponseDTO();
+
+        // get data list userchallenger
+        List<Object[]> results = repository.getUserChallengeStats(userId);
+        List<UserChallengeDto> userChallengeList = new ArrayList<>();
+
+        for (Object[] row : results) {
+            // Ambil data user challenge
+
+            UserChallengeDto userChallengeDto = new UserChallengeDto();
+            userChallengeDto.setUserChallengeId((Integer) row[0]);
+            userChallengeDto.setChallengeId((Integer) row[1]);
+            userChallengeDto.setChallengeLevel((String) row[2]);
+            userChallengeDto.setStatus((String) row[3]);
+            userChallengeDto.setJoinedat(DateFormatter.formatDateTime(((Timestamp) row[4]).toLocalDateTime()));
+            userChallengeDto.setFinishedat((row[5] != null ? DateFormatter.formatDateTime(((Timestamp) row[5]).toLocalDateTime()) : null));
+            userChallengeDto.setDeadlinedat(DateFormatter.formatDateTime(((Timestamp) row[6]).toLocalDateTime()));
+            userChallengeDto.setProgress((BigDecimal) row[7]);
+
+            userChallengeList.add(userChallengeDto);
+        }
+
+        userChallengeListResponseDTO.setUserId(userId);
+        userChallengeListResponseDTO.setUserChallenge(userChallengeList);
+
+        return userChallengeListResponseDTO;
     }
 
     @Override
@@ -88,9 +146,9 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             if (row[9] != null) {
                 progressDetail = new UserChallengeProgressDto();
                 progressDetail.setStatus((String) row[9]);
-                progressDetail.setStartedAt(row[10] != null ? ((Timestamp) row[10]).toLocalDateTime() : null);
-                progressDetail.setCompletedAt(row[11] != null ? ((Timestamp) row[11]).toLocalDateTime() : null);
-                progressDetail.setDeadlineAt(row[12] != null ? ((Timestamp) row[12]).toLocalDateTime() : null);
+                progressDetail.setStartedAt(row[10] != null ? DateFormatter.formatDateTime(((Timestamp) row[10]).toLocalDateTime()) : null);
+                progressDetail.setCompletedAt(row[11] != null ? DateFormatter.formatDateTime(((Timestamp) row[11]).toLocalDateTime()) : null);
+                progressDetail.setDeadlineAt(row[12] != null ? DateFormatter.formatDateTime(((Timestamp) row[12]).toLocalDateTime()) : null);
                 progressDetail.setCaption((String) row[13]);
                 progressDetail.setProofUrl((String) row[14]);
             } else{

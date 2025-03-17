@@ -1,9 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.CategoryDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.CategoryService;
-import id.buataplikasivaluasi1miliyar.challanger.app.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
