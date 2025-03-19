@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.Instant;
 import java.util.List;
@@ -16,6 +17,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        String message = "Invalid parameter: '" + ex.getName() + "' should be of type " + ex.getRequiredType().getSimpleName();
+        log.warn("Type Mismatch Error: {}", message);
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, message);
+    }
 
     // Handle Resource Not Found (e.g., User, Challenge, etc.)
     @ExceptionHandler(CustomExceptionHandler.ResourceNotFoundException.class)
