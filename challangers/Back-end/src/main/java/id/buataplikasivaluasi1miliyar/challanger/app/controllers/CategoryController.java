@@ -1,6 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.CategoryDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,9 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDto>> getUsers() {
-
         List<CategoryDto> categories = categoryService.getCategories();
+        if (categories.isEmpty()) throw new CustomExceptionHandler.ResourceNotFoundException("No categories found");
 
-        System.out.println("Mapping categories: " + categories.size()); // Debug mapping
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
