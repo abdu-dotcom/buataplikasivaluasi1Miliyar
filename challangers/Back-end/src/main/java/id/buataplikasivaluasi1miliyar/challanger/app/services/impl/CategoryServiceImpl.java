@@ -22,7 +22,6 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     public List<CategoryDto> getCategories(){
-        try{
            List<Category> categories = categoryRepository.findAll();
 
            if (categories.isEmpty()) return Collections.emptyList(); // Jangan return null, return list kosong
@@ -30,10 +29,5 @@ public class CategoryServiceImpl implements CategoryService {
            return categories.stream()
                    .map(categoryMapper::mapToCategoryDto) // Konversi dari User ke UserDto
                    .collect(Collectors.toList());
-       } catch (DataAccessException e) {
-            throw new CustomExceptionHandler.DatabaseException("Database connection error: " + e.getMessage());
-       } catch (Exception e) {
-           throw new CustomExceptionHandler.InternalServerErrorException("Unexpected error occurred while fetching categories");
-       }
     }
 }

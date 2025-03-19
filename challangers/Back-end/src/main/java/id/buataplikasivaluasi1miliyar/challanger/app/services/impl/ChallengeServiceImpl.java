@@ -23,12 +23,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     // mendapatkan seluruh data challenger tanpa sub challenge
     @Override
     public List<ChallengeDto> getChallengers() {
-        List<ChallengeDto> users = challengeRepository.findAll()
+        return challengeRepository.findAll()
                 .stream()
                 .map(challengeMapper::toChallengeDto) // Konversi dari User ke UserDto
                 .collect(Collectors.toList());
-
-        return users;
     }
 
     // ✅ Ambil Challenge + Sub-Challenges by Id challenge(GET)
@@ -40,11 +38,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     // ✅ Ambil Challenge + Sub-Challenges by Category Id(GET)
     public List<ChallengeDto> getChallengeByCategoryId(Integer categoryId) {
-        List<ChallengeDto> challenge = challengeRepository.findByCategoryId(categoryId)
+        return challengeRepository.findByCategoryId(categoryId)
                 .stream()
                 .map(challengeMapper::toChallengeDto) // Konversi dari User ke UserDto
                 .collect(Collectors.toList());
-
-        return challenge;
     }
 }

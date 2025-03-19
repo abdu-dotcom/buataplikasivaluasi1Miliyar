@@ -22,8 +22,6 @@ public class CategoryController {
     @GetMapping("/categories")
     public ResponseEntity<List<CategoryDto>> getUsers() {
         List<CategoryDto> categories = categoryService.getCategories();
-        if (categories.isEmpty()) throw new CustomExceptionHandler.ResourceNotFoundException("No categories found");
-
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
