@@ -2,13 +2,9 @@ package id.buataplikasivaluasi1miliyar.challanger.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +13,7 @@ import java.util.List;
 @JsonPropertyOrder({
         "challengeId", "challengeName", "challengeDescription", "challengeLevel",
         "challengeParticipation", "challengeParticipationOnProgress", "challengeParticipationFinished",
-        "challengeParticipationFailed", "categoryId", "createdAt", "updatedAt", "subChallenges"
+        "challengeParticipationFailed", "categoryId", "createdAt", "updatedAt"
 })
 public class ChallengeDto {
     private Integer challengeId;
@@ -32,6 +28,7 @@ public class ChallengeDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Timestamp createdAt;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Timestamp updatedAt;
 }

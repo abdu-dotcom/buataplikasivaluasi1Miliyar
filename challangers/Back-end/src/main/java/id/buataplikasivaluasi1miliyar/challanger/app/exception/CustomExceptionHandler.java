@@ -64,10 +64,24 @@ public class CustomExceptionHandler {
 
     @Getter
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @RequiredArgsConstructor
     public static class ResourceNotFoundException extends RuntimeException {
-        private final String message;
+        private String resourceName;
+        private String fieldName;
+
+        // Constructor lama (masih bisa digunakan)
+        public ResourceNotFoundException(String message) {
+            super(message);
+        }
+
+        public ResourceNotFoundException(String resourceName, String fieldName) {
+            super(resourceName + " not found with " + fieldName);
+            this.resourceName = resourceName;
+            this.fieldName = fieldName;
+        }
+
+
     }
+
 
     @Getter
     @RequiredArgsConstructor
