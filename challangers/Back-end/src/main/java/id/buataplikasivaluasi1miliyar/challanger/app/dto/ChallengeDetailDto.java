@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,10 @@ public class ChallengeDetailDto {
     private Integer challengeParticipationFinished;
     private Integer challengeParticipationFailed;
     private Integer categoryId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Timestamp createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Timestamp updatedAt;
     private List<ChallengeSubDto> subChallenges;
 }
