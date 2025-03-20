@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 public class UserChallenge {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_challange_id")
-    private Integer userChallengeId;
+    private String userChallengeId;
     @Column(name = "user_id")
     private String userId;
     @Column(name = "challenge_id")

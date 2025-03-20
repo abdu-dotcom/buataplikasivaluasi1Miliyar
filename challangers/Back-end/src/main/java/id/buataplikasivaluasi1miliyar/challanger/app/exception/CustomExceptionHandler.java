@@ -33,6 +33,12 @@ public class CustomExceptionHandler {
         return createErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
+    @ExceptionHandler(DuplicateDataException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, Object> handleDuplicateDataException(DuplicateDataException ex) {
+        return createErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Map<String, Object> handleUnauthorizedException(UnauthorizedException ex) {
@@ -78,10 +84,20 @@ public class CustomExceptionHandler {
             this.resourceName = resourceName;
             this.fieldName = fieldName;
         }
-
-
     }
 
+    @Getter
+    @ResponseStatus(HttpStatus.CONFLICT) // 409 Conflict
+    public static class DuplicateDataException extends RuntimeException {
+        private final String userId;
+        private final Integer challengeId;
+
+        public DuplicateDataException(String userId, Integer challengeId) {
+            super(String.format("userId %s has entered the challenge with id '%s'", userId, challengeId));
+            this.userId = userId;
+            this.challengeId = challengeId;
+        }
+    }
 
     @Getter
     @RequiredArgsConstructor

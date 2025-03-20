@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
@@ -30,10 +31,10 @@ public class UserChallengeProgress {
     @Column(name = "proof_url")
     private String proofUrl;
     @Column(name = "started_at")
-    private LocalDateTime startedAt;
+    private Timestamp startedAt;
     @Column(name = "completed_at")
-    private LocalDateTime completedAt;
+    private Timestamp completedAt;
     @Column(name = "deadline_at")
-    private LocalDateTime deadlineAt;
+    private Timestamp deadlineAt;
 
 }

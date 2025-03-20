@@ -4,7 +4,9 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.*;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
@@ -39,39 +41,44 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 
     @Override
     public ChallengeJoinResponseDto acceptChallenge(ChallengeJoinRequestDto dto) {
+        String isUserJoinedChallenge = isUserJoinedChallenge(dto);
+        String userId = dto.getUserId();
 
-        // check user exists
-        String  isUserJoinedChallenge = isUserJoinedChallenge(dto);
-        if (Objects.equals(isUserJoinedChallenge, "true"))  throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User telah join challenge");
-        // count challenge sub to get deadline
+        if (Objects.equals(isUserJoinedChallenge, "true")) {
+      throw new CustomExceptionHandler.DuplicateDataException(
+           userId, dto.getChallengeId());
+        }
+
         int numberOfChallengeDay = repository.getNumberOfChallengeDaysByChallengeId(dto.getChallengeId());
-        logger.info("=== [data numberOfChallengeDay] :" + "==>" + "["+ numberOfChallengeDay + "]");
+        logger.info("=== [data numberOfChallengeDay] : [{}]", numberOfChallengeDay);
 
-        // get deadline date
         LocalDateTime dateNow = LocalDateTime.now();
         LocalDateTime deadlineDate = dateNow.plusDays(numberOfChallengeDay);
 
-        logger.info("=== [data dateNow]             :" + "==>" + "["+ dateNow + "]");
-        logger.info("=== [data deadlineDate]        :" + "==>" + "["+ deadlineDate + "]");
+        logger.info("=== [data dateNow]             : [{}]", dateNow);
+        logger.info("=== [data deadlineDate]        : [{}]", deadlineDate);
 
-        // init data new user
+        if (!userId.matches(".*\\d.*")) {
+                throw new CustomExceptionHandler.BusinessException("Invalid userId format: " + userId);
+        }
+        Integer userIdNumber = Integer.valueOf(userId.replaceAll("\\D+", ""));
+        Integer challengeId = dto.getChallengeId();
+        String UserChallengeId = "CHL" + userIdNumber + challengeId;
+
         UserChallenge userChallenge = mapper.toUserChallengeEntity(dto);
-        userChallenge.setStatus("Joined");
+        userChallenge.setUserChallengeId(UserChallengeId);
+        userChallenge.setStatus("OnProgress");
         userChallenge.setJoinedat(dateNow);
         userChallenge.setDeadlinedat(deadlineDate);
 
-        // save data
         UserChallenge saveUserChallenge = repository.save(userChallenge);
-        repository.flush();
 
-        // mapped to dto
-        ChallengeJoinResponseDto userChallengeDto =  mapper.toChallengeJoinResponsetDto(saveUserChallenge);
-
-        // set value response
+        ChallengeJoinResponseDto userChallengeDto = mapper.toChallengeJoinResponsetDto(saveUserChallenge);
         userChallengeDto.setJoinedat(DateFormatter.formatDateTime(dateNow));
-        // return response
+
         return userChallengeDto;
     }
+
 
     public String isUserJoinedChallenge(ChallengeJoinRequestDto dto){
         // check di database
