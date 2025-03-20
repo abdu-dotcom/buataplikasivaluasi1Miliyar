@@ -6,9 +6,11 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.Challenge
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallengeProgress;
 import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
+import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeProgressRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
@@ -16,17 +18,13 @@ import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,53 +35,6 @@ public class UserChallengeServiceImpl implements UserChallengeService {
     private final ChallengeRepository challengeRepository;
     private final ChallengeMapper challengeMapper;
     private final UserChallengeRepository repository;
-    private final UserChallengeMapper mapper;
-
-    @Override
-    public ChallengeJoinResponseDto acceptChallenge(ChallengeJoinRequestDto dto) {
-        String isUserJoinedChallenge = isUserJoinedChallenge(dto);
-        String userId = dto.getUserId();
-
-        if (Objects.equals(isUserJoinedChallenge, "true")) {
-      throw new CustomExceptionHandler.DuplicateDataException(
-           userId, dto.getChallengeId());
-        }
-
-        int numberOfChallengeDay = repository.getNumberOfChallengeDaysByChallengeId(dto.getChallengeId());
-        logger.info("=== [data numberOfChallengeDay] : [{}]", numberOfChallengeDay);
-
-        LocalDateTime dateNow = LocalDateTime.now();
-        LocalDateTime deadlineDate = dateNow.plusDays(numberOfChallengeDay);
-
-        logger.info("=== [data dateNow]             : [{}]", dateNow);
-        logger.info("=== [data deadlineDate]        : [{}]", deadlineDate);
-
-        if (!userId.matches(".*\\d.*")) {
-                throw new CustomExceptionHandler.BusinessException("Invalid userId format: " + userId);
-        }
-        Integer userIdNumber = Integer.valueOf(userId.replaceAll("\\D+", ""));
-        Integer challengeId = dto.getChallengeId();
-        String UserChallengeId = "CHL" + userIdNumber + challengeId;
-
-        UserChallenge userChallenge = mapper.toUserChallengeEntity(dto);
-        userChallenge.setUserChallengeId(UserChallengeId);
-        userChallenge.setStatus("OnProgress");
-        userChallenge.setJoinedat(dateNow);
-        userChallenge.setDeadlinedat(deadlineDate);
-
-        UserChallenge saveUserChallenge = repository.save(userChallenge);
-
-        ChallengeJoinResponseDto userChallengeDto = mapper.toChallengeJoinResponsetDto(saveUserChallenge);
-        userChallengeDto.setJoinedat(DateFormatter.formatDateTime(dateNow));
-
-        return userChallengeDto;
-    }
-
-
-    public String isUserJoinedChallenge(ChallengeJoinRequestDto dto){
-        // check di database
-        return  repository.getUserChallengeByUserIdAndChallengeId(dto.getUserId(), dto.getChallengeId());
-    };
 
     @Override
     public UserChallengeListResponseDTO getAllChallengesByUser(String userId) {

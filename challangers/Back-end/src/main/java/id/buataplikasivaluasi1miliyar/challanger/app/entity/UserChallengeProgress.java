@@ -14,14 +14,13 @@ import java.time.LocalDateTime;
 @Table(name = "user_challenges_progress")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)  // 💡 Tambahkan ini
 public class UserChallengeProgress {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "progress_id")
-    private Integer progressId;
+    private String progressId;
     @Column(name = "user_challange_id")
-    private Integer userChallengeId;
+    private String userChallengeId;
     @Column(name = "challenge_sub_id")
     private Integer challengeSubId;
     @Column(name = "status")

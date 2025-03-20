@@ -18,13 +18,6 @@ public class UserChallengeController {
 
     private final UserChallengeService service;
 
-    @PostMapping("/accept-challenge")
-    public ResponseEntity<ChallengeJoinResponseDto
-            > acceptChallenge(@RequestBody ChallengeJoinRequestDto dto) {
-        ChallengeJoinResponseDto result = service.acceptChallenge(dto);
-        return ResponseEntity.ok(result);
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<UserChallengeListResponseDTO> getUserChallenges(@PathVariable String userId) {
         UserChallengeListResponseDTO challenges = service.getAllChallengesByUser(userId);
