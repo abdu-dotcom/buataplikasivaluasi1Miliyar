@@ -72,16 +72,16 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         List<Object[]> results = repository.findUserChallengeDetail(userId, challengeId);
 
         if (results.isEmpty()) {
-      throw new CustomExceptionHandler.ResourceNotFoundException(
-          "Challenge not found for this user.");
+            throw new CustomExceptionHandler.ResourceNotFoundException(
+            "Challenge not found for this user.");
         }
 
         UserChallengeDetailDto userChallengeDetailDto = new UserChallengeDetailDto();
 
         // get challengeDetail Dto
         Optional<Challenge> challengeDetailOpt = challengeRepository.getChallengeById(challengeId);
-    ChallengeDetailDto challengeDetailDto =
-        challengeDetailOpt
+
+        ChallengeDetailDto challengeDetailDto = challengeDetailOpt
             .map(challengeMapper::toChallengeDetailDto)
             .orElseThrow(() -> new IllegalArgumentException("Challenge not found"));
 
