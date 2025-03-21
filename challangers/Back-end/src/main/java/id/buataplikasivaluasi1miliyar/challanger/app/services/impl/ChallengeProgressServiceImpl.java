@@ -5,6 +5,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.Challenge
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeSubCompletion.ChallengeSubCompletionRequest;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeSubCompletion.ChallengeSubCompletionResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.Leaderboard;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallengeProgress;
 import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
@@ -12,6 +13,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeProgressMap
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeProgressRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
+import id.buataplikasivaluasi1miliyar.challanger.app.repository.LeaderboardRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeProgressService;
 import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
@@ -20,13 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +37,9 @@ public class ChallengeProgressServiceImpl implements ChallengeProgressService {
     private ChallengeProgressMapper challengeProgressMapper;
     private final UserChallengeRepository userChallengeRepository;
     private final UserChallengeMapper userChallengeMapper;
+    private final LeaderboardRepository leaderboardRepository;
+    private final ChallengeRepository challengeRepository;
+
     @Override
     public ChallengeJoinResponseDto acceptChallenge(ChallengeJoinRequestDto dto) {
 
@@ -89,6 +91,7 @@ public class ChallengeProgressServiceImpl implements ChallengeProgressService {
     public ChallengeSubCompletionResponse completeSubChallenge(ChallengeSubCompletionRequest request) {
 
         // menerima request
+        String userId = request.getUserId();
         String userChallengeId  = request.getUserChallengeId();
         Integer challengeSubId = request.getSubChallengeId();
         String proof            = request.getProofUrl();
@@ -98,12 +101,64 @@ public class ChallengeProgressServiceImpl implements ChallengeProgressService {
         UserChallengeProgress userChallengeProgressData = challengeProgressRepository.findByUserChallengeIdAndChallengeSubId(userChallengeId,challengeSubId);
         if (userChallengeProgressData == null) throw new CustomExceptionHandler.ResourceNotFoundException("UserChallengeId", "Id = " + userChallengeId);
 
+        // validasi challenge is already complated
+        if (Objects.equals(userChallengeProgressData.getStatus(), "Completed")) throw new CustomExceptionHandler.BusinessException("Challenge sub is already completed");
+
         // update data progress -> change status to complete.
         userChallengeProgressData.setStatus("Completed");
         userChallengeProgressData.setCaption(caption);
         userChallengeProgressData.setProofUrl(proof);
         userChallengeProgressData.setCompletedAt(Timestamp.valueOf(LocalDateTime.now()));
         userChallengeProgressData = challengeProgressRepository.save(userChallengeProgressData);
+
+        // Cek apakah user sudah ada di leaderboard
+        Leaderboard userLeaderboardData = leaderboardRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    // Jika tidak ada, buat object baru
+                    Leaderboard newLeaderboard = new Leaderboard();
+                    newLeaderboard.setUserId(userId);
+                    newLeaderboard.setScore(0); // Nilai awal
+                    return newLeaderboard;
+                });
+        logger.info("userLeaderboardData: " + userLeaderboardData);
+
+        // get challenge sub score
+        Integer challengeId =   userChallengeRepository.getChallengeIdByUserChallengeId(userChallengeId).getChallengeId();
+        Integer scoreChallengeSub = challengeRepository.getScoreByIdAndChallengeSubId(challengeId, challengeSubId); // Misal 10 poin per sub-challenge
+
+        // Update score (bisa sesuai logic kamu)
+        userLeaderboardData.setScore(userLeaderboardData.getScore() + scoreChallengeSub);
+        userLeaderboardData.setRecord_at(LocalDateTime.now());
+        leaderboardRepository .save(userLeaderboardData);
+
+        // validasi sub challenge selanjutnya
+        Optional<Challenge> Challenge = challengeRepository.findById(challengeId);
+        Integer subChallengeTotal = Challenge.get().getSubChallenges().size();
+
+        if (challengeSubId != subChallengeTotal){
+
+            challengeSubId = challengeSubId + 1;
+            String progresId = userChallengeId + challengeSubId;
+
+            // create new next sub challenge
+            UserChallengeProgress newProgressChallenge = new UserChallengeProgress();
+            newProgressChallenge.setProgressId(progresId);
+            newProgressChallenge.setUserChallengeId(userChallengeId);
+            newProgressChallenge.setChallengeSubId(challengeSubId);
+            newProgressChallenge.setStatus("OnProgress");
+            newProgressChallenge.setStartedAt(Timestamp.valueOf(LocalDateTime.now()));
+            newProgressChallenge.setDeadlineAt(Timestamp.valueOf(LocalDateTime.now().plusDays(1))); // Misalnya 2 hari durasi per sub-challenge
+            challengeProgressRepository.save(newProgressChallenge);
+        } else if (challengeSubId == subChallengeTotal) {
+            // challenge complated
+            UserChallenge saveUserChallenge = userChallengeRepository.getUserChallengeByUserChallengeId(userChallengeId);
+
+            saveUserChallenge.setChallengeId(challengeId);
+            saveUserChallenge.setStatus("Complated");
+            saveUserChallenge.setFinishedat(LocalDateTime.now());
+            userChallengeRepository.save(saveUserChallenge);
+        }
+
 
         return challengeProgressMapper.toChallengeSubCompletionResponse(userChallengeProgressData);
     }

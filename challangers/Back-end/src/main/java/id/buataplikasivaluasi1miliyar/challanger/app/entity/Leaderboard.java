@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Leaderboard {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer leaderboard_id;
-    private String user_id;
+    @Column(name = "user_id") // Pastikan ini sesuai dengan database
+    private String userId;
     private Integer score;
     private LocalDateTime record_at;
 }

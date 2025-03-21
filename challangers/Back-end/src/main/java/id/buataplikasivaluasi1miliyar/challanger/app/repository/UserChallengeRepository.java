@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.repository;
 
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserChallengeRepository extends JpaRepository<UserChallenge, Integer> {
+public interface UserChallengeRepository extends JpaRepository<UserChallenge, String> {
   @Query(
       value =
           """
@@ -84,4 +85,8 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, In
     """,
       nativeQuery = true)
   List<Object[]> getUserChallengeStats(@Param("userId") String userId);
-}
+
+    UserChallenge getChallengeIdByUserChallengeId(String userChallengeId);
+
+    UserChallenge getUserChallengeByUserChallengeId(String userChallengeId);
+  }

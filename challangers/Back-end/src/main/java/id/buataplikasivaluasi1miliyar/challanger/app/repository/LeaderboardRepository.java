@@ -14,7 +14,7 @@ public interface LeaderboardRepository extends JpaRepository<Leaderboard, Intege
     SELECT
         l.user_id AS userId,
         u.username as username,
-        l.score AS score, 
+        l.score AS score,
         l.record_at AS recordAt, 
         DENSE_RANK() OVER (ORDER BY l.score DESC) AS rank 
     FROM leaderboard l left join users u on l.user_id = u.user_id
@@ -36,4 +36,7 @@ public interface LeaderboardRepository extends JpaRepository<Leaderboard, Intege
         WHERE ranked.userId = :userId
     """,nativeQuery = true)
   Optional<LeaderboardProjection> findUserRank(@Param("userId") String userId);
+
+    Optional<Leaderboard> findByUserId(String userId);
+
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class UserChallengeDto {
     @Id
-    private Integer userChallengeId;
+    private String userChallengeId;
     private Integer challengeId;
     private String challengeLevel;
     private String status; // on_progress, completed, failed

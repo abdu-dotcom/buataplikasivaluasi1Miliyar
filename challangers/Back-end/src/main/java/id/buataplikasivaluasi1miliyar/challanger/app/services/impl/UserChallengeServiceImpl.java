@@ -49,7 +49,7 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             // Ambil data user challenge
 
             UserChallengeDto userChallengeDto = new UserChallengeDto();
-            userChallengeDto.setUserChallengeId((Integer) row[0]);
+            userChallengeDto.setUserChallengeId((String) row[0]);
             userChallengeDto.setChallengeId((Integer) row[1]);
             userChallengeDto.setChallengeLevel((String) row[2]);
             userChallengeDto.setStatus((String) row[3]);
@@ -72,7 +72,8 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         List<Object[]> results = repository.findUserChallengeDetail(userId, challengeId);
 
         if (results.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Challenge not found for this user.");
+      throw new CustomExceptionHandler.ResourceNotFoundException(
+          "Challenge not found for this user.");
         }
 
         UserChallengeDetailDto userChallengeDetailDto = new UserChallengeDetailDto();
