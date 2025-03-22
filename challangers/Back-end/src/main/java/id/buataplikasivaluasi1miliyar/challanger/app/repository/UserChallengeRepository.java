@@ -59,7 +59,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
           uc.joined_at as joinedat,
           uc.finished_at as finishedat,
           uc.deadline_at as deadlinedat,
-          CEIL((COUNT(case when ucp.status in ('on_progress', 'finished') then 1 end) * 100.0 / nullif(COUNT(cs.challenge_sub_id),
+          CEIL((COUNT(case when ucp.status in ('OnProgress', 'Completed') then 1 end) * 100.0 / nullif(COUNT(cs.challenge_sub_id),
           0))) as progress
       from
           user_challenges uc

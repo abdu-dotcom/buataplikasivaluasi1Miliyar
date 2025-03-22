@@ -12,6 +12,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeProgressMap
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.*;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeProgressService;
+import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeService;
 import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -37,8 +39,14 @@ public class ChallengeProgressServiceImpl implements ChallengeProgressService {
   private final LeaderboardRepository leaderboardRepository;
   private final ChallengeRepository challengeRepository;
 
+  private final ChallengeService challengeService;
+
   @Override
   public ChallengeJoinResponseDto acceptChallenge(ChallengeJoinRequestDto dto) {
+
+    // validasi challenge id tidak ditemukan
+    if (challengeRepository.findById(dto.getChallengeId()).isEmpty())
+      throw new CustomExceptionHandler.ResourceNotFoundException("Challenge not found with Id: " + dto.getChallengeId());
 
     String isUserJoinedChallenge =
         userChallengeRepository.getUserChallengeByUserIdAndChallengeId(
@@ -213,8 +221,20 @@ public class ChallengeProgressServiceImpl implements ChallengeProgressService {
       userChallengeProgress.setCompletedAt(Timestamp.valueOf(LocalDateTime.now()));
       challengeProgressRepository.save(userChallengeProgress);
 
-      // start new challenge sub if exist
-      startSubChallenge(userChallengeId, challengeSubId);
+      // check next challenge sub
+      Integer totalSubChallenge = challengeService.getChallengeSubById(challengeSubId).size();
+      if (subChallengeId != totalSubChallenge){
+        // start new challenge sub if exist
+        startSubChallenge(userChallengeId, challengeSubId);
+      }else{
+        // set complated userProgress
+        UserChallenge userChallenge = userChallengeRepository.getUserChallengeByUserChallengeId(userChallengeId);
+        userChallenge.setStatus("Completed");
+        userChallenge.setFinishedat(LocalDateTime.now());
+
+        userChallengeRepository.save(userChallenge);
+      }
+
       // give back response success
       challengeSubFailedResponse.setUserId(userId);
       challengeSubFailedResponse.setUserChallengeId(userChallengeId);

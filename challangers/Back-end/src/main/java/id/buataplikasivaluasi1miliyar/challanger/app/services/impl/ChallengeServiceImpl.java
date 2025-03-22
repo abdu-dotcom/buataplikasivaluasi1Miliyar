@@ -3,14 +3,17 @@ package id.buataplikasivaluasi1miliyar.challanger.app.services.impl;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.ChallengeSub;
 import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
+import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeSubRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +22,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeMapper challengeMapper;
+    private final ChallengeSubRepository challengeSubRepository;
 
     // ✅ mendapatkan seluruh data challenger tanpa sub challenge
     @Override
@@ -33,6 +37,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     // ✅ Ambil Challenge + Sub-Challenges by Id challenge(GET)
+    @Override
     public ChallengeDetailDto getChallengeById(Integer challengeId) {
     Challenge challenge =
         challengeRepository
@@ -44,6 +49,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     }
 
     // ✅ Ambil Challenge + Sub-Challenges by Category Id(GET)
+    @Override
     public List<ChallengeDto> getChallengeByCategoryId(Integer categoryId) {
         List<Challenge> challenges =  challengeRepository.findByCategoryId(categoryId);
 
@@ -53,5 +59,10 @@ public class ChallengeServiceImpl implements ChallengeService {
                 .stream()
                 .map(challengeMapper::toChallengeDto) // Konversi dari User ke UserDto
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChallengeSub> getChallengeSubById(Integer challengeSubId){
+        return challengeSubRepository.getChallengesSubBychallengeSubId(challengeSubId);
     }
 }
