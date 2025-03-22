@@ -1,16 +1,9 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.services.impl;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.*;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallengeProgress;
 import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
-import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
-import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeProgressRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
@@ -18,9 +11,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

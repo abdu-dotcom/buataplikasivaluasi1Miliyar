@@ -1,15 +1,11 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeListResponseDTO;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user-challenge")

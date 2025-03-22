@@ -1,18 +1,18 @@
-package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeSubCompletion;
+package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeSubFailed;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChallengeSubCompletionRequest {
+public class ChallengeSubFailedRequest {
     private String userId;
     private String userChallengeId;
     private Integer subChallengeId;
-    private String caption;
-    private String proofUrl;
 }

@@ -1,4 +1,4 @@
-package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeSubCompletion;
+package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeSubCompletion;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

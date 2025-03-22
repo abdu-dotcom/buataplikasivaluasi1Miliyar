@@ -1,4 +1,4 @@
-package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin;
+package id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeJoin;
 
 
 import lombok.AllArgsConstructor;

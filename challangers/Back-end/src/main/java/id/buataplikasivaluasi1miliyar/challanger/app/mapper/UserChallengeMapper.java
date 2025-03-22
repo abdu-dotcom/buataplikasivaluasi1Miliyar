@@ -1,7 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.mapper;
 
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinRequestDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeJoin.ChallengeJoinResponseDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeJoin.ChallengeJoinRequestDto;
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
 import org.mapstruct.InheritInverseConfiguration;
