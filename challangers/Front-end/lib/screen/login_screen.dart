@@ -1,6 +1,10 @@
+import 'dart:math';
+
+import 'package:challangers/provides/user_provide.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../services/log_service.dart';
-import '../Widgets/custom_text_field.dart';
+import '../widgets/custom_text_field.dart';
 import '../widgets/custom_button.dart';
 import 'category_screen.dart';
 import 'main_screen.dart';
@@ -13,14 +17,43 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController usernameController =
-      TextEditingController(); // Tambahkan controller
+  final TextEditingController usernameController = TextEditingController();
+  String guestId = "#Guest0000000012"; // Guest ID default untuk validasi
 
   @override
   void dispose() {
-    usernameController
-        .dispose(); // Pastikan untuk dispose controller agar tidak ada memory leak
+    usernameController.dispose(); // Mencegah memory leak
     super.dispose();
+  }
+
+  void loginUser(BuildContext context, String username) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    String username = usernameController.text.trim();
+    String userId =
+        username != 'superit' ? generateUserId() : "#CHALLENGE000095";
+
+    userProvider.setUserData(userId, username);
+
+    // Log dalam satu baris
+    LogService.logger.d("✅ User Login | ID: $userId | Username: $username");
+
+    // Navigasi berdasarkan apakah user menggunakan Guest ID atau tidak
+    Widget nextScreen = userId == username ? CategoryScreen() : MainScreen();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => nextScreen),
+    );
+  }
+
+  String generateUserId() {
+    Random random = Random();
+    int randomNumber = random.nextInt(99999); // Generate angka antara 0-99999
+    String formattedNumber =
+        randomNumber.toString().padLeft(5, '0'); // Format jadi 5 digit
+
+    return "CHALLENGE$formattedNumber";
   }
 
   @override
@@ -45,32 +78,22 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 20),
-            const CustomTextField(hintText: '#Guest0000000012', enabled: false),
+
+            // Guest ID untuk validasi
+            CustomTextField(hintText: guestId, enabled: false),
             const SizedBox(height: 10),
+
+            // Username Input (Bebas)
             CustomTextField(
                 controller: usernameController, hintText: 'Username'),
             const SizedBox(height: 20),
+
             CustomButton(
               text: 'Next',
               onPressed: () {
-                String username =
-                    usernameController.text.trim(); // Ambil input user
+                String username = usernameController.text.trim();
                 LogService.logger.d("Tombol Next ditekan, Username: $username");
-
-                if (username.isNotEmpty) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
-                  );
-                } else {
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   SnackBar(content: Text("Username tidak boleh kosong!")),
-                  // );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CategoryScreen()),
-                  );
-                }
+                loginUser(context, username);
               },
             ),
           ],

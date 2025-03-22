@@ -2,53 +2,62 @@ package id.buataplikasivaluasi1miliyar.challanger.app.services.impl;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.*;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.Challenge;
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.entity.ChallengeSub;
+import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.mapper.ChallengeMapper;
-import id.buataplikasivaluasi1miliyar.challanger.app.mapper.UserChallengeMapper;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
+import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeSubRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
+import id.buataplikasivaluasi1miliyar.challanger.app.utils.DateFormatter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserChallengeServiceImpl implements UserChallengeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserChallengeServiceImpl.class);
+
     private final ChallengeRepository challengeRepository;
     private final ChallengeMapper challengeMapper;
     private final UserChallengeRepository repository;
-    private final UserChallengeMapper mapper;
 
     @Override
-    public UserChallengeDto acceptChallenge(UserChallengeDto dto) {
+    public UserChallengeListResponseDTO getAllChallengesByUser(String userId) {
 
-        System.out.println(dto.getUserChallengeId());
-        System.out.println(dto.getStatus());
-        System.out.println(dto.getJoinedat());
-        System.out.println(dto.getUserId());
-       // init data new user
-        UserChallenge userChallenge = mapper.toEntity(dto);
+        UserChallengeListResponseDTO userChallengeListResponseDTO  = new UserChallengeListResponseDTO();
 
-        UserChallenge saveUserChallenge = repository.save(userChallenge);
-        repository.flush();
-        return mapper.toDTO(saveUserChallenge);
-    }
+        // get data list userchallenger
+        List<Object[]> results = repository.getUserChallengeStats(userId);
+        List<UserChallengeDto> userChallengeList = new ArrayList<>();
 
-    @Override
-    public List<UserChallengeDto> getAllChallengesByUser(String userId) {
-        return repository.findAll().stream()
-                .filter(challenge -> challenge.getUserId().equals(userId))
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
+        for (Object[] row : results) {
+            // Ambil data user challenge
+
+            UserChallengeDto userChallengeDto = new UserChallengeDto();
+            userChallengeDto.setUserChallengeId((String) row[0]);
+            userChallengeDto.setChallengeId((Integer) row[1]);
+            userChallengeDto.setChallengeLevel((String) row[2]);
+            userChallengeDto.setStatus((String) row[3]);
+            userChallengeDto.setJoinedat(DateFormatter.formatDateTime(((Timestamp) row[4]).toLocalDateTime()));
+            userChallengeDto.setFinishedat((row[5] != null ? DateFormatter.formatDateTime(((Timestamp) row[5]).toLocalDateTime()) : null));
+            userChallengeDto.setDeadlinedat(DateFormatter.formatDateTime(((Timestamp) row[6]).toLocalDateTime()));
+            userChallengeDto.setProgress((BigDecimal) row[7]);
+
+            userChallengeList.add(userChallengeDto);
+        }
+
+        userChallengeListResponseDTO.setUserId(userId);
+        userChallengeListResponseDTO.setUserChallenge(userChallengeList);
+
+        return userChallengeListResponseDTO;
     }
 
     @Override
@@ -56,15 +65,16 @@ public class UserChallengeServiceImpl implements UserChallengeService {
         List<Object[]> results = repository.findUserChallengeDetail(userId, challengeId);
 
         if (results.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Challenge not found for this user.");
+            throw new CustomExceptionHandler.ResourceNotFoundException(
+            "Challenge not found for this user.");
         }
 
         UserChallengeDetailDto userChallengeDetailDto = new UserChallengeDetailDto();
 
         // get challengeDetail Dto
         Optional<Challenge> challengeDetailOpt = challengeRepository.getChallengeById(challengeId);
-    ChallengeDetailDto challengeDetailDto =
-        challengeDetailOpt
+
+        ChallengeDetailDto challengeDetailDto = challengeDetailOpt
             .map(challengeMapper::toChallengeDetailDto)
             .orElseThrow(() -> new IllegalArgumentException("Challenge not found"));
 
@@ -88,9 +98,9 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             if (row[9] != null) {
                 progressDetail = new UserChallengeProgressDto();
                 progressDetail.setStatus((String) row[9]);
-                progressDetail.setStartedAt(row[10] != null ? ((Timestamp) row[10]).toLocalDateTime() : null);
-                progressDetail.setCompletedAt(row[11] != null ? ((Timestamp) row[11]).toLocalDateTime() : null);
-                progressDetail.setDeadlineAt(row[12] != null ? ((Timestamp) row[12]).toLocalDateTime() : null);
+                progressDetail.setStartedAt(row[10] != null ? DateFormatter.formatDateTime(((Timestamp) row[10]).toLocalDateTime()) : null);
+                progressDetail.setCompletedAt(row[11] != null ? DateFormatter.formatDateTime(((Timestamp) row[11]).toLocalDateTime()) : null);
+                progressDetail.setDeadlineAt(row[12] != null ? DateFormatter.formatDateTime(((Timestamp) row[12]).toLocalDateTime()) : null);
                 progressDetail.setCaption((String) row[13]);
                 progressDetail.setProofUrl((String) row[14]);
             } else{
@@ -107,4 +117,5 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 
         return userChallengeDetailDto;
     }
+
 }

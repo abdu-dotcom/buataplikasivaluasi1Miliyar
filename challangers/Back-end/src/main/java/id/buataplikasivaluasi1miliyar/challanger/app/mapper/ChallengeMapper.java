@@ -49,7 +49,7 @@ public interface ChallengeMapper {
 
     List<ChallengeDetailDto> toChallengeDetailDtoList(List<Challenge> challenges);
 
-    @Mapping(source = "challengeSubId", target = "challenge_sub_id")
+    @Mapping(source = "challengeSubId", target = "challengeSubId")
     @Mapping(source = "challengeSubName", target = "challenge_sub_name")
     @Mapping(source = "challengeSubPoint", target = "challenge_sub_point")
     @Mapping(source = "challengeSubTipeDeadline", target = "challenge_sub_tipe_deadline")

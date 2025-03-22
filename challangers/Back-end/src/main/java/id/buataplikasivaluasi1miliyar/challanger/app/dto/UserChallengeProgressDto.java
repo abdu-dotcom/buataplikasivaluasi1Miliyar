@@ -17,7 +17,7 @@ public class UserChallengeProgressDto {
     private String status;
     private String caption;
     private String proofUrl;
-    private LocalDateTime startedAt;
-    private LocalDateTime deadlineAt;
-    private LocalDateTime completedAt;
+    private String startedAt;
+    private String deadlineAt;
+    private String completedAt;
 }

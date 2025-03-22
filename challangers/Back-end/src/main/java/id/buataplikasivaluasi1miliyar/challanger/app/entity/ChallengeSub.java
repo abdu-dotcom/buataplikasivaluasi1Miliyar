@@ -12,7 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ChallengeSub {
     @Id
-    private Integer challenge_sub_id;
+    @Column(name = "challenge_sub_id")
+    private Integer challengeSubId;
     private String challenge_sub_name;
     private Integer challenge_sub_point;
     private String challenge_sub_tipe_deadline;
