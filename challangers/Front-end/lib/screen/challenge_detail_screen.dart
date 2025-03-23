@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dio/dio.dart';
-
 import 'package:challangers/Widgets/challenge_info_card.dart';
 import 'package:challangers/Widgets/image_preview.dart';
 import 'package:challangers/Widgets/sub_challenge_list.dart';
@@ -9,7 +7,6 @@ import 'package:challangers/widgets/custom_button.dart';
 import 'package:challangers/core/api/api_service.dart';
 import 'package:challangers/provides/user_provide.dart';
 import 'package:challangers/provides/challenge_provide.dart';
-import 'package:challangers/services/log_service.dart';
 import 'package:challangers/models/challenge_model.dart';
 
 class ChallengeDetailScreen extends StatefulWidget {

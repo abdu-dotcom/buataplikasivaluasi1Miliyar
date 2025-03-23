@@ -101,21 +101,6 @@ class ChallengeModel {
       subChallenges: subChallenges ?? this.subChallenges,
     );
   }
-
-  static DateTime _parseDate(dynamic dateValue) {
-    if (dateValue == null) return DateTime.now();
-    if (dateValue is int) {
-      return DateTime.fromMillisecondsSinceEpoch(dateValue);
-    }
-    if (dateValue is String) {
-      try {
-        return DateTime.parse(dateValue);
-      } catch (e) {
-        return DateTime.now();
-      }
-    }
-    return DateTime.now();
-  }
 }
 
 // Fungsi helper untuk JSON

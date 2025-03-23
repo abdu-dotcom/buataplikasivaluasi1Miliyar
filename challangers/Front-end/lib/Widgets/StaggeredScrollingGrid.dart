@@ -28,7 +28,9 @@ class _StaggeredScrollingGridState extends State<StaggeredScrollingGrid> {
 
   void _startAutoScroll(ScrollController controller,
       {bool reverse = false}) async {
-    while (mounted && controller.hasClients) {
+    while (mounted) {
+      if (!controller.hasClients) break;
+
       try {
         double minExtent = controller.position.minScrollExtent;
         double maxExtent = controller.position.maxScrollExtent;
@@ -36,7 +38,7 @@ class _StaggeredScrollingGridState extends State<StaggeredScrollingGrid> {
 
         int durationSeconds = (totalScrollDistance / 15).round();
 
-        if (!mounted || !controller.hasClients) return;
+        if (!mounted || !controller.hasClients) break;
 
         // Scroll to end
         await controller.animateTo(
@@ -45,7 +47,7 @@ class _StaggeredScrollingGridState extends State<StaggeredScrollingGrid> {
           curve: Curves.linear,
         );
 
-        if (!mounted || !controller.hasClients) return;
+        if (!mounted || !controller.hasClients) break;
 
         // Scroll back to start
         await controller.animateTo(
@@ -54,7 +56,7 @@ class _StaggeredScrollingGridState extends State<StaggeredScrollingGrid> {
           curve: Curves.linear,
         );
       } catch (e) {
-        break; // Stops looping if an error occurs
+        break; // Hentikan loop jika ada error
       }
     }
   }

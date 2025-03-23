@@ -103,4 +103,7 @@ class ApiService {
       return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
     }
   }
+
+  // 🔹 GET User challenge List
+  
 }
