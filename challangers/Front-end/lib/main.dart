@@ -1,7 +1,6 @@
 import 'package:challangers/provides/category_provide.dart';
 import 'package:challangers/provides/challenge_provide.dart';
 import 'package:challangers/provides/user_provide.dart';
-// import 'package:challangers/screen/category_screen.dart';
 import 'package:challangers/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
