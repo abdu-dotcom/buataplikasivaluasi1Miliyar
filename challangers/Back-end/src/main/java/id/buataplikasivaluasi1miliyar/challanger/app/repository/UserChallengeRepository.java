@@ -54,6 +54,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
     select
           uc.user_challange_id as userChallengeId,
           cs.challenge_id as challengeId,
+          c.challenge_name as challengeName,
           c.challenge_level as challengeLevel,
           uc.status,
           uc.joined_at as joinedat,
@@ -77,6 +78,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
           uc.user_id,
           uc.user_challange_id,
           cs.challenge_id,
+          c.challenge_name,
           c.challenge_level,
           uc.status,
           uc.joined_at,

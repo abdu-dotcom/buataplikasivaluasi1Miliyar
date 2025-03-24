@@ -44,12 +44,13 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             UserChallengeDto userChallengeDto = new UserChallengeDto();
             userChallengeDto.setUserChallengeId((String) row[0]);
             userChallengeDto.setChallengeId((Integer) row[1]);
-            userChallengeDto.setChallengeLevel((String) row[2]);
-            userChallengeDto.setStatus((String) row[3]);
-            userChallengeDto.setJoinedat(DateFormatter.formatDateTime(((Timestamp) row[4]).toLocalDateTime()));
-            userChallengeDto.setFinishedat((row[5] != null ? DateFormatter.formatDateTime(((Timestamp) row[5]).toLocalDateTime()) : null));
-            userChallengeDto.setDeadlinedat(DateFormatter.formatDateTime(((Timestamp) row[6]).toLocalDateTime()));
-            userChallengeDto.setProgress((BigDecimal) row[7]);
+            userChallengeDto.setChallengeName((String) row[2]);
+            userChallengeDto.setChallengeLevel((String) row[3]);
+            userChallengeDto.setStatus((String) row[4]);
+            userChallengeDto.setJoinedat(DateFormatter.formatDateTime(((Timestamp) row[5]).toLocalDateTime()));
+            userChallengeDto.setFinishedat((row[6] != null ? DateFormatter.formatDateTime(((Timestamp) row[6]).toLocalDateTime()) : null));
+            userChallengeDto.setDeadlinedat(DateFormatter.formatDateTime(((Timestamp) row[7]).toLocalDateTime()));
+            userChallengeDto.setProgress((BigDecimal) row[8]);
 
             userChallengeList.add(userChallengeDto);
         }

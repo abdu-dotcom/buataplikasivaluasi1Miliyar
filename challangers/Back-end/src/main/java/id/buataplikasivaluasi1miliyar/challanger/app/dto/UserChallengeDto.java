@@ -16,6 +16,7 @@ public class UserChallengeDto {
     @Id
     private String userChallengeId;
     private Integer challengeId;
+    private String challengeName;
     private String challengeLevel;
     private String status; // on_progress, completed, failed
     @JsonInclude(JsonInclude.Include.NON_NULL)
