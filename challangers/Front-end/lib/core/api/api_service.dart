@@ -119,4 +119,21 @@ class ApiService {
       return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
     }
   }
+
+  // 🔹 GET Leaderboard and User Rank
+  Future<Map<String, dynamic>> getLeaderboard(String userId) async {
+    try {
+      Response response = await _dio.get(
+        'leaderboard/$userId',
+        options: Options(headers: {'Cache-Control': 'no-cache'}),
+      );
+
+      return response.data; // Jika sukses, langsung return response
+    } on DioException catch (e) {
+      // Tangani error berdasarkan status code
+      return {"success": false, "message": e.stackTrace};
+    } catch (e) {
+      return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
+    }
+  }
 }

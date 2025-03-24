@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:challangers/services/log_service.dart';
 import 'package:flutter/material.dart';
 
 class StaggeredScrollingGrid extends StatefulWidget {

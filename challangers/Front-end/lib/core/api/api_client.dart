@@ -15,12 +15,12 @@ class ApiClient {
         )) {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-        // LogService.logger.d(("➡️ Request: ${options.method} ${options.uri}"));
+        LogService.logger.d(("➡️ Request: ${options.method} ${options.uri}"));
         return handler.next(options);
       },
       onResponse: (response, handler) {
-        // LogService.logger
-        //     .d(("✅ Response: ${response.statusCode} ${response.data}"));
+        LogService.logger
+            .d(("✅ Response: ${response.statusCode} ${response.data}"));
         return handler.next(response);
       },
       onError: (DioException e, handler) {
