@@ -1,6 +1,5 @@
 import 'package:challangers/models/category_model.dart';
 import 'package:challangers/models/challenge_model.dart';
-import 'package:challangers/services/log_service.dart';
 import 'package:dio/dio.dart';
 import 'api_client.dart';
 
@@ -105,5 +104,19 @@ class ApiService {
   }
 
   // 🔹 GET User challenge List
-  
+  Future<Map<String, dynamic>> userChallenges(String userId) async {
+    try {
+      Response response = await _dio.get(
+        'user-challenge/$userId',
+        options: Options(headers: {'Cache-Control': 'no-cache'}),
+      );
+
+      return response.data; // Jika sukses, langsung return response
+    } on DioException catch (e) {
+      // Tangani error berdasarkan status code
+      return {"success": false, "message": e.stackTrace};
+    } catch (e) {
+      return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
+    }
+  }
 }

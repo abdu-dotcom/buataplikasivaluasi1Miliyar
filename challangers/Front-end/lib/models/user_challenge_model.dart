@@ -1,48 +1,84 @@
+class UserChallengeResponse {
+  final String userId;
+  final List<UserChallengeModel> userChallenges;
+
+  UserChallengeResponse({
+    required this.userId,
+    required this.userChallenges,
+  });
+
+  /// Convert JSON Map to Object (Deserialization)
+  factory UserChallengeResponse.fromJson(Map<String, dynamic> json) {
+    return UserChallengeResponse(
+      userId: json['userId'],
+      userChallenges: (json['userChallenge'] as List)
+          .map((challenge) => UserChallengeModel.fromJson(challenge))
+          .toList(),
+    );
+  }
+
+  /// Convert Object to JSON Map (Serialization)
+  Map<String, dynamic> toJson() {
+    return {
+      'userId': userId,
+      'userChallenge':
+          userChallenges.map((challenge) => challenge.toJson()).toList(),
+    };
+  }
+}
+
 class UserChallengeModel {
-  final int userChallengeId;
+  final String userChallengeId;
   final int challengeId;
+  final String challengeName; // ✅ Tambahkan challengeName setelah challengeId
   final String challengeLevel;
   final String status;
   final DateTime joinedAt;
   final DateTime? finishedAt;
   final DateTime deadlineAt;
-  final int progres;
+  final int progress;
 
-  UserChallengeModel(
-      {required this.userChallengeId,
-      required this.challengeId,
-      required this.challengeLevel,
-      required this.status,
-      required this.joinedAt,
-      this.finishedAt,
-      required this.deadlineAt,
-      required this.progres});
+  UserChallengeModel({
+    required this.userChallengeId,
+    required this.challengeId,
+    required this.challengeName, // ✅ Tambahkan di constructor
+    required this.challengeLevel,
+    required this.status,
+    required this.joinedAt,
+    this.finishedAt,
+    required this.deadlineAt,
+    required this.progress,
+  });
 
-  /// Convert Map to Object (Deserialization)
-  factory UserChallengeModel.fromMap(Map<String, dynamic> map) {
+  /// Convert JSON Map to Object (Deserialization)
+  factory UserChallengeModel.fromJson(Map<String, dynamic> json) {
     return UserChallengeModel(
-        userChallengeId: map['user_challenge_id'] as int,
-        challengeId: map['challenge_id'] as int,
-        challengeLevel: map['challenge_level'] as String,
-        status: map['status'] as String,
-        joinedAt: DateTime.parse(map['joined_at']),
-        finishedAt: map['finished_at'] != null
-            ? DateTime.parse(map['finished_at'])
-            : null,
-        deadlineAt: DateTime.parse(map['deadline_at']),
-        progres: map['progress']);
+      userChallengeId: json['userChallengeId'],
+      challengeId: json['challengeId'],
+      challengeName: json['challengeName'], // ✅ Ambil dari JSON
+      challengeLevel: json['challengeLevel'],
+      status: json['status'],
+      joinedAt: DateTime.parse(json['joinedat']),
+      finishedAt: json['finishedat'] != null
+          ? DateTime.parse(json['finishedat'])
+          : null,
+      deadlineAt: DateTime.parse(json['deadlinedat']),
+      progress: json['progress'],
+    );
   }
 
-  /// Convert Object to Map (Serialization)
-  Map<String, dynamic> toMap() {
+  /// Convert Object to JSON Map (Serialization)
+  Map<String, dynamic> toJson() {
     return {
-      'user_challenge_id': userChallengeId,
-      'challenge_id': challengeId,
+      'userChallengeId': userChallengeId,
+      'challengeId': challengeId,
+      'challengeName': challengeName, // ✅ Tambahkan ke JSON
+      'challengeLevel': challengeLevel,
       'status': status,
-      'joined_at': joinedAt.toIso8601String(),
-      'finished_at': finishedAt?.toIso8601String(),
-      'deadline_at': deadlineAt.toIso8601String(),
-      'progress': progres
+      'joinedat': joinedAt.toIso8601String(),
+      'finishedat': finishedAt?.toIso8601String(),
+      'deadlinedat': deadlineAt.toIso8601String(),
+      'progress': progress,
     };
   }
 }
