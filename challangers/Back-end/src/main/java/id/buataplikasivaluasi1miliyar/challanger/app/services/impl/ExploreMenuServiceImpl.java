@@ -23,9 +23,6 @@ public class ExploreMenuServiceImpl implements ExploreMenuService {
     public List<ExploreMenuDto> getProgresAllUsers() {
         List<ExploreMenuProjection>  userChallengeProgress = exploreMenuRepository.findAllWithUserInfo();
 
-        System.out.println("UserChallengeId : "+userChallengeProgress.get(0).getUserChallengeId());
-        System.out.println("challengesubid : "+userChallengeProgress.get(0).getChallengeSubId());
-
         // entity to dto
         return exploreMenuMapper.toExploreMenuDto(userChallengeProgress);
     }
