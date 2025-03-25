@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.dto.Leaderboard;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -9,8 +10,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class LeaderboardDto {
-    private String status;
-    private String timestamp;
     private UserRank user_rank;
     private List<LeaderboardItem> leaderboard;
 
@@ -22,6 +21,7 @@ public class LeaderboardDto {
         private int rank;
         private String user_id;
         private int score;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
         private Timestamp record_at;
     }
 
@@ -32,6 +32,7 @@ public class LeaderboardDto {
         private int rank;
         private String user_id;
         private int score;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
         private Timestamp record_at;
     }
 }

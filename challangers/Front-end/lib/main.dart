@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Challenger App',
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: const LeaderboardScreen(),
+      home: const LoginScreen(),
     );
   }
 }
