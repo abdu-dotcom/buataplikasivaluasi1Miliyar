@@ -8,6 +8,8 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.Ch
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeSubFailed.ChallengeSubFailedResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeProgressService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,20 +18,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class ChallengeProgressController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ChallengeProgressController.class);
     private ChallengeProgressService challengeProgressService;
 
     /** Process user klik accept challenge artinya user mengikutin challenge dan mulai progress */
     @PostMapping("/accept-challenge")
     public ResponseEntity<ChallengeJoinResponseDto
             > acceptChallenge(@RequestBody ChallengeJoinRequestDto dto) {
+        logger.info("START  service : {} (API END POINT: {})", "acceptChallenge", "/accept-challenge");
+
         ChallengeJoinResponseDto result = challengeProgressService.acceptChallenge(dto);
+
+        logger.info("END    service : {} (API END POINT: {})", "acceptChallenge", "/accept-challenge");
         return ResponseEntity.ok(result);
     }
 
     /** Process user upload bukti challenge */
     @PostMapping("/challenges/sub-challenges/complete")
     public ResponseEntity<ChallengeSubCompletionResponse> completeSubChallenge(@RequestBody ChallengeSubCompletionRequest request) {
+        logger.info("START  service : {} (API END POINT: {})", "completeSubChallenge", "/challenges/sub-challenges/complete");
+
         ChallengeSubCompletionResponse challengeSubCompletionResponse = challengeProgressService.completeSubChallenge(request);
+
+        logger.info("END    service : {} (API END POINT: {})", "completeSubChallenge", "/challenges/sub-challenges/complete");
         return ResponseEntity.ok(challengeSubCompletionResponse);
     }
 
