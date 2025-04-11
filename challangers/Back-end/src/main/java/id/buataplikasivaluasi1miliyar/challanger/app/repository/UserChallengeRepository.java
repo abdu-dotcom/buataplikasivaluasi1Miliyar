@@ -1,7 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.repository;
 
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.projection.UserChallengeProgressProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,7 +32,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
         WHERE uc.user_id = :userId AND uc.challenge_id = :challengeId
     """,
       nativeQuery = true)
-  List<Object[]> findUserChallengeDetail(
+  List<UserChallengeProgressProjection> findUserChallengeDetail(
       @Param("userId") String userId, @Param("challengeId") Integer challengeId);
 
   @Query(

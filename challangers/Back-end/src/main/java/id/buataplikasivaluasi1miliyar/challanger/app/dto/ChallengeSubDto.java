@@ -3,14 +3,12 @@ package id.buataplikasivaluasi1miliyar.challanger.app.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @JsonPropertyOrder
+@Builder
 public class ChallengeSubDto {
     @Id
     private Integer challengeSubId;

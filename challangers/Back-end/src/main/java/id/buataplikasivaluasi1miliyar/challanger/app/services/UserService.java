@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.services;
 
+import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserRequest;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserResponse;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface UserService {
 
     String generateUserId();
 
-    UserResponse createUser(String user_id, String username);
+    UserResponse createUser(UserRequest request);
 }
