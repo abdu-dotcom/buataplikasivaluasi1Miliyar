@@ -12,5 +12,9 @@ public interface MotivationMapper {
 
     MotivationMapper INSTANCE = Mappers.getMapper(MotivationMapper.class);
 
+    // Mapping satu object
+    MotivationDto toMotivationDto(Motivation motivation);
+
+    // Mapping list
     List<MotivationDto> toMotivationDto(List<Motivation> motivation);
 }

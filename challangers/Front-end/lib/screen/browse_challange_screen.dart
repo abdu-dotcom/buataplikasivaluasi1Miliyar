@@ -1,4 +1,5 @@
 import 'package:challangers/provides/challenge_provide.dart';
+import 'package:challangers/services/log_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/challenge_list_card.dart';

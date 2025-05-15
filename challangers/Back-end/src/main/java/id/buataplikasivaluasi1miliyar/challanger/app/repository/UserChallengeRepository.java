@@ -1,7 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.repository;
 
-import id.buataplikasivaluasi1miliyar.challanger.app.entity.User;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
+import id.buataplikasivaluasi1miliyar.challanger.app.projection.UserChallengeProgressProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,7 +32,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
         WHERE uc.user_id = :userId AND uc.challenge_id = :challengeId
     """,
       nativeQuery = true)
-  List<Object[]> findUserChallengeDetail(
+  List<UserChallengeProgressProjection> findUserChallengeDetail(
       @Param("userId") String userId, @Param("challengeId") Integer challengeId);
 
   @Query(
@@ -54,12 +54,13 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
     select
           uc.user_challange_id as userChallengeId,
           cs.challenge_id as challengeId,
+          c.challenge_name as challengeName,
           c.challenge_level as challengeLevel,
           uc.status,
           uc.joined_at as joinedat,
           uc.finished_at as finishedat,
           uc.deadline_at as deadlinedat,
-          CEIL((COUNT(case when ucp.status in ('OnProgress', 'Completed') then 1 end) * 100.0 / nullif(COUNT(cs.challenge_sub_id),
+          CEIL((COUNT(case when ucp.status in ('Completed') then 1 end) * 100.0 / nullif(COUNT(cs.challenge_sub_id),
           0))) as progress
       from
           user_challenges uc
@@ -77,6 +78,7 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
           uc.user_id,
           uc.user_challange_id,
           cs.challenge_id,
+          c.challenge_name,
           c.challenge_level,
           uc.status,
           uc.joined_at,

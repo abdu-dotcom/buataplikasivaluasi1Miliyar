@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ExploreMenuMapper {
+    // Mapping satu objek dari ExploreMenuProjection ke ExploreMenuDto
+    ExploreMenuDto toExploreMenuDto(ExploreMenuProjection source);
 
-    ExploreMenuMapper INSTANCE = Mappers.getMapper(ExploreMenuMapper.class);
-    // UserChallengeProgress (Entity) → ExploreMenuDto
-
-    List<ExploreMenuDto> toExploreMenuDto(List<ExploreMenuProjection> userChallengeProgress);
+    // Mapping list menggunakan method di atas
+    List<ExploreMenuDto> toExploreMenuDto(List<ExploreMenuProjection> sourceList);
 }

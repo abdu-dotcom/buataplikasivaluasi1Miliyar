@@ -1,5 +1,6 @@
 import 'dart:math';
-
+import 'dart:ui';
+import 'package:challangers/Widgets/StaggeredScrollingGrid.dart';
 import 'package:challangers/provides/user_provide.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,20 +19,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
-  String guestId = "#Guest0000000012"; // Guest ID default untuk validasi
-
-  @override
-  void dispose() {
-    usernameController.dispose(); // Mencegah memory leak
-    super.dispose();
-  }
+  String guestId = "#Guest0000000012";
 
   void loginUser(BuildContext context, String username) {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     String username = usernameController.text.trim();
     String userId =
-        username != 'superit' ? generateUserId() : "#CHALLENGE000095";
+        username != 'superit' ? generateUserId() : "CHALLENGE000095";
 
     userProvider.setUserData(userId, username);
 
@@ -60,41 +55,72 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     LogService.logger.i("Layar login screen dibuka");
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Scaffold(
+        body: Stack(
           children: [
-            const Text(
-              'Welcome to CHALLENGER',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Unlock your potential, embrace challenges, and rise with our community.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            const SizedBox(height: 20),
+            /// 1️⃣ Background Grid Scrolling
+            Positioned.fill(child: StaggeredScrollingGrid()),
 
-            // Guest ID untuk validasi
-            CustomTextField(hintText: guestId, enabled: false),
-            const SizedBox(height: 10),
+            /// 2️⃣ Overlay Login Card
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: double.infinity,
+                height: 700,
+                padding: EdgeInsets.all(32),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.center,
+                    colors: [
+                      Color.fromRGBO(
+                          200, 200, 200, 0), // Light grey transparent
+                      Colors.white, // Pure white
+                    ],
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text(
+                      'Welcome to CHALLENGER',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Unlock your potential, embrace challenges, and rise with our community.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    const SizedBox(height: 20),
 
-            // Username Input (Bebas)
-            CustomTextField(
-                controller: usernameController, hintText: 'Username'),
-            const SizedBox(height: 20),
+                    // Guest ID
+                    CustomTextField(hintText: guestId, enabled: false),
+                    const SizedBox(height: 10),
 
-            CustomButton(
-              text: 'Next',
-              onPressed: () {
-                String username = usernameController.text.trim();
-                LogService.logger.d("Tombol Next ditekan, Username: $username");
-                loginUser(context, username);
-              },
+                    // Username Input
+                    CustomTextField(
+                        controller: usernameController, hintText: 'Username'),
+                    const SizedBox(height: 20),
+
+                    // Button
+                    CustomButton(
+                      text: 'Next',
+                      onPressed: () {
+                        String username = usernameController.text.trim();
+                        LogService.logger
+                            .d("Tombol Next ditekan, Username: $username");
+                        loginUser(context, username);
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

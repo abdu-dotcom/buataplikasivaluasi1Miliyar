@@ -4,29 +4,32 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.Ch
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeJoin.ChallengeJoinResponseDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.entity.UserChallenge;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Mapper(componentModel = "spring")
 public interface UserChallengeMapper {
-
-    UserChallengeMapper INSTANCE = Mappers.getMapper(UserChallengeMapper.class);
-
-    @Mapping(source = "userChallengeId", target = "userChallengeId")
-    @Mapping(source = "challengeId", target = "challengeId")
-    @Mapping(source = "status", target = "status")
-    @Mapping(source = "joinedat", target = "joinedat")
-    @Mapping(source = "finishedat", target = "finishedat")
-    @Mapping(source = "deadlinedat", target = "deadlinedat")
-    UserChallengeDto toDTO(UserChallenge challenge);
-
-    @InheritInverseConfiguration
-    UserChallenge toEntity(UserChallengeDto dto);
 
     // mapper untuk end point /accept-challenge
     ChallengeJoinResponseDto toChallengeJoinResponsetDto(UserChallenge challenge);
     UserChallenge toUserChallengeEntity(ChallengeJoinRequestDto dto);
 
+    // ✨ Tambahkan ini
+    default UserChallengeDto ObjectToUserChallengeDto(Object[] row) {
+        if (row == null || row.length < 9) return null;
+
+        return UserChallengeDto.builder()
+            .userChallengeId((String) row[0])
+            .challengeId((Integer) row[1])
+            .challengeName((String) row[2])
+            .challengeLevel((String) row[3])
+            .status((String) row[4])
+            .joinedat((Timestamp) row[5])
+            .finishedat(row[6] != null ? (Timestamp) row[6] : null)
+            .deadlinedat((Timestamp) row[7])
+            .progress((BigDecimal) row[8])
+            .build();
+    }
 }

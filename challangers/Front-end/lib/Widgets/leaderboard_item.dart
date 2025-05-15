@@ -3,11 +3,11 @@ import 'package:challangers/models/leaderboard_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeaderboardItem extends StatelessWidget {
-  final LeaderboardModel leaderboardModel;
+  final RankLeaderboardModel rankLeaderboardModel;
 
   const LeaderboardItem({
     super.key,
-    required this.leaderboardModel,
+    required this.rankLeaderboardModel,
   });
 
   @override
@@ -24,7 +24,7 @@ class LeaderboardItem extends StatelessWidget {
         leading: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (leaderboardModel.leaderboardId <= 3) //
+            if (rankLeaderboardModel.rank <= 3) //
               SizedBox(
                 width: 35,
                 child: Icon(
@@ -36,7 +36,7 @@ class LeaderboardItem extends StatelessWidget {
               SizedBox(
                 width: 35, // Lebar tetap untuk rank agar rapi
                 child: Text(
-                  leaderboardModel.leaderboardId.toString(),
+                  rankLeaderboardModel.rank.toString(),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
@@ -58,13 +58,13 @@ class LeaderboardItem extends StatelessWidget {
           ],
         ),
         title: Text(
-          leaderboardModel.userId,
+          rankLeaderboardModel.userId,
           style: const TextStyle(fontSize: 14),
         ),
         trailing: SizedBox(
           width: 70, // Lebar tetap supaya angka tetap sejajar
           child: Text(
-            "${leaderboardModel.score} pts",
+            "${rankLeaderboardModel.score} pts",
             textAlign: TextAlign.right,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),

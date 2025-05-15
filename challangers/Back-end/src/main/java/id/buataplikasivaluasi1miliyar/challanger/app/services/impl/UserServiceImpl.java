@@ -22,68 +22,66 @@ import org.slf4j.LoggerFactory;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UsersRepository usersRepository;
     private final UserMapper userMapper;
 
+    /** Mendapatkan user semua data user */
     public List<UserResponse> getUsers(){
-
-        List<UserResponse> users = usersRepository.findAll()
+        return usersRepository.findAll()
                 .stream()
                 .map(userMapper::toResponse) // Konversi dari User ke UserDto
                 .collect(Collectors.toList());
-
-        return users;
     }
 
+    /** Membuat userId berdasarkan username + sequence. Ex: CHALLENGE000001 */
   public String generateUserId() {
-        // create userId berdasarkan username + sequence. Ex: CHALLENGE000001
-        String userId = null;
 
-        // get higher userId
-        Optional<String> lastUserIdOpt =  usersRepository.findLastUserId();
+      String userId = "CHALLENGE000001";
 
-        // Check jika challenger baru
-        if (lastUserIdOpt.isEmpty()){
-            userId = "CHALLENGE000001";
-        }
+      // get higher userId
+      Optional<String> lastUserIdOpt =  usersRepository.findLastUserId();
 
-        String lastUserId = lastUserIdOpt.get(); // Misal: "CHALLENGE00100"
-        System.out.println("lastUserId: " + lastUserId);
-        int lastNumber = Integer.parseInt(lastUserId.substring(9));
+      // Check jika challenger lama
+      if (lastUserIdOpt.isPresent()) userId = lastUserIdOpt.get();
 
-        // Tambah 1, lalu format ke CHALLENGE0000001
-        return String.format("CHALLENGE%06d", lastNumber + 1);
+      // get sequence number from userId. Ex: 000001
+      int sequenceUserId = Integer.parseInt(userId.substring(9));
+
+      // Tambah 1, lalu format ke CHALLENGE0000001
+      return String.format("CHALLENGE%06d", sequenceUserId + 1);
     }
 
+    /** Membuat data user baru */
     @Override
-    public UserResponse createUser(String userId, String username) {
+    public UserResponse createUser(UserRequest request) {
 
-        logger.info("=== Before [userId] :" + "==>" + "["+ userId + "]");
+        String userId = request.getUser_id();
+        String username = request.getUsername();
 
         // check userId
         Boolean existsByUserId = usersRepository.existsByUserId(userId);
+
         // check username
         Boolean userExists = usersRepository.existsByUsername(username);
 
-        if (existsByUserId) userId =  generateUserId(); // create userId baru
         if (userExists)  throw new IllegalArgumentException("Username sudah digunakan"); // error jika username exist
+        if (existsByUserId) userId =  generateUserId(); // create userId baru
 
         // init data new user
-        User user = new User();
-        // set data user
-        user.setUserId(userId);
-        user.setUsername(username);
-        user.setEmail("");
-        user.setCreate_at(Timestamp.from(Instant.now()));
-        user.setUpdate_at(Timestamp.from(Instant.now()));
+        User user = User.builder()
+                .userId(userId)
+                .username(username)
+                .email("") // default kosong
+                .create_at(Timestamp.from(Instant.now()))
+                .update_at(Timestamp.from(Instant.now()))
+                .build();
 
-        logger.info("=== [data user] :" + "==>" + "["+ user + "]");
-        // create data user
+        // save user
         User userEntity = usersRepository.save(user);
 
-        // return data
+        // return response
         return userMapper.toResponse(userEntity);
     }
 }

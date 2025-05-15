@@ -1,7 +1,7 @@
 import 'package:challangers/models/category_model.dart';
 import 'package:challangers/models/challenge_model.dart';
-import 'package:challangers/services/log_service.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'api_client.dart';
 
 class ApiService {
@@ -81,24 +81,59 @@ class ApiService {
       String userId, int challengeId) async {
     try {
       Response response = await _dio.post(
-        'user-challenge/accept-challenge',
+        'accept-challenge',
         data: {"userId": userId, "challengeId": challengeId},
         options: Options(headers: {'Cache-Control': 'no-cache'}),
       );
 
       return response.data; // Jika sukses, langsung return response
     } on DioException catch (e) {
-      // Tangani error berdasarkan status code
       String errorMessage;
-      if (e.response?.statusCode == 400) {
-        errorMessage = "Anda sudah mengikuti challenge ini sebelumnya!";
-      } else if (e.response?.statusCode == 500) {
-        errorMessage = "Server sedang bermasalah, coba lagi nanti.";
+      if (e.response != null) {
+        // 🛠 Debugging Log
+        debugPrint("🔥 Error Response: ${e.response!.data}");
+
+        errorMessage = e.response!.data['message'] ?? "Terjadi kesalahan!";
       } else {
         errorMessage = "Terjadi kesalahan jaringan: ${e.message}";
       }
 
       return {"success": false, "message": errorMessage};
+    } catch (e) {
+      debugPrint("🔥 Unexpected Error: $e");
+      return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
+    }
+  }
+
+  // 🔹 GET User challenge List
+  Future<Map<String, dynamic>> userChallenges(String userId) async {
+    try {
+      Response response = await _dio.get(
+        'user-challenge/$userId',
+        options: Options(headers: {'Cache-Control': 'no-cache'}),
+      );
+
+      return response.data; // Jika sukses, langsung return response
+    } on DioException catch (e) {
+      // Tangani error berdasarkan status code
+      return {"success": false, "message": e.stackTrace};
+    } catch (e) {
+      return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
+    }
+  }
+
+  // 🔹 GET Leaderboard and User Rank
+  Future<Map<String, dynamic>> getLeaderboard(String userId) async {
+    try {
+      Response response = await _dio.get(
+        'leaderboard/$userId',
+        options: Options(headers: {'Cache-Control': 'no-cache'}),
+      );
+
+      return response.data; // Jika sukses, langsung return response
+    } on DioException catch (e) {
+      // Tangani error berdasarkan status code
+      return {"success": false, "message": e.stackTrace};
     } catch (e) {
       return {"success": false, "message": "Terjadi kesalahan sistem: $e"};
     }

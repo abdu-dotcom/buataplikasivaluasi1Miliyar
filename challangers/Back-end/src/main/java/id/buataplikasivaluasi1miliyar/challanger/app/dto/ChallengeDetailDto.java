@@ -9,11 +9,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({
-        "challengeId", "challengeName", "challengeDescription", "challengeLevel",
-        "challengeParticipation", "challengeParticipationOnProgress", "challengeParticipationFinished",
-        "challengeParticipationFailed", "categoryId", "createdAt", "updatedAt", "subChallenges"
-})
 public class ChallengeDetailDto extends ChallengeDto {
     private List<ChallengeSubDto> subChallenges;
 }

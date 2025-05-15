@@ -43,8 +43,12 @@ class ChallengeModel {
           json['challengeParticipationFinished'] ?? 0,
       challengeParticipationFailed: json['challengeParticipationFailed'] ?? 0,
       categoryId: json['categoryId'] ?? 0,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] ?? 0),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] ?? 0),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : DateTime.now(),
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'])
+          : DateTime.now(),
       subChallenges: (json['subChallenges'] as List? ?? [])
           .map(
               (item) => ChallengeSubModel.fromMap(item as Map<String, dynamic>))
@@ -100,21 +104,6 @@ class ChallengeModel {
       updatedAt: updatedAt ?? this.updatedAt,
       subChallenges: subChallenges ?? this.subChallenges,
     );
-  }
-
-  static DateTime _parseDate(dynamic dateValue) {
-    if (dateValue == null) return DateTime.now();
-    if (dateValue is int) {
-      return DateTime.fromMillisecondsSinceEpoch(dateValue);
-    }
-    if (dateValue is String) {
-      try {
-        return DateTime.parse(dateValue);
-      } catch (e) {
-        return DateTime.now();
-      }
-    }
-    return DateTime.now();
   }
 }
 

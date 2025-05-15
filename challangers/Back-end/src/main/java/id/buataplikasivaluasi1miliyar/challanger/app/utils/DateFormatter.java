@@ -1,5 +1,6 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.utils;
 
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -27,5 +28,12 @@ public class DateFormatter {
      */
     public static long addDaysToTimestamp(long timestamp, int daysToAdd) {
         return timestamp + (daysToAdd * 24L * 60 * 60 * 1000);
+    }
+
+    private String formatTimestamp(Object timestampObj) {
+        if (timestampObj instanceof Timestamp ts) {
+            return DateFormatter.formatDateTime(ts.toLocalDateTime());
+        }
+        return null;
     }
 }

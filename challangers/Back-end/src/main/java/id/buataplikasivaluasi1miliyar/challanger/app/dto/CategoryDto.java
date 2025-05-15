@@ -10,8 +10,8 @@ import lombok.*;
 public class CategoryDto {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer category_id;
-    private String category_name;
-    private String category_desc;
-    private String category_img;
+    private Integer categoryId;
+    private String categoryName;
+    private String categoryDesc;
+    private String categoryImg;
 }

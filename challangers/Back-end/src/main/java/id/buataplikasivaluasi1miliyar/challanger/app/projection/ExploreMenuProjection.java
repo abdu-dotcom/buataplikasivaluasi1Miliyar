@@ -7,10 +7,11 @@ public interface ExploreMenuProjection {
 
     String getUserId();
     String getUsername();
-    Integer getProgressId();
-    Integer getUserChallengeId();
-    Integer getChallengeSubId();
+    String getProgressId();
+    String getChallengeName();
+    String getChallengeLevel();
+    String getChallengeSubName();
     String getCaption();
     String getProofUrl();
-    LocalDateTime getStartAt();
+    Timestamp getFinishedAt();
 }

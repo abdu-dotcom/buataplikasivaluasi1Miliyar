@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String hintText;
   final bool enabled;
@@ -13,21 +13,54 @@ class CustomTextField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  final FocusNode _focusNode = FocusNode();
+  Color _borderColor = const Color.fromRGBO(233, 233, 233, 1); // Default border
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {
+        _borderColor = _focusNode.hasFocus
+            ? Colors.blue
+            : const Color.fromRGBO(233, 233, 233, 1);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: controller, // Gunakan controller jika ada
-      enabled: enabled,
+      controller: widget.controller,
+      focusNode: _focusNode,
+      enabled: widget.enabled,
       decoration: InputDecoration(
-        hintText: hintText,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 195))),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        filled: true,
-        fillColor:
-            enabled ? Colors.white : const Color.fromARGB(255, 224, 224, 224),
-      ),
+          hintText: widget.hintText,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(color: _borderColor),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: const BorderSide(
+                color: Colors.blue, width: 2), // 🔹 Now Blue When Focused
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          filled: true,
+          fillColor: widget.enabled
+              ? Colors.white
+              : const Color.fromRGBO(233, 233, 233, 1)),
     );
   }
 }

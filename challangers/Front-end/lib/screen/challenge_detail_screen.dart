@@ -1,7 +1,6 @@
+import 'package:challangers/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dio/dio.dart';
-
 import 'package:challangers/Widgets/challenge_info_card.dart';
 import 'package:challangers/Widgets/image_preview.dart';
 import 'package:challangers/Widgets/sub_challenge_list.dart';
@@ -9,7 +8,6 @@ import 'package:challangers/widgets/custom_button.dart';
 import 'package:challangers/core/api/api_service.dart';
 import 'package:challangers/provides/user_provide.dart';
 import 'package:challangers/provides/challenge_provide.dart';
-import 'package:challangers/services/log_service.dart';
 import 'package:challangers/models/challenge_model.dart';
 
 class ChallengeDetailScreen extends StatefulWidget {
@@ -35,6 +33,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
 
   Future<void> _acceptChallenge() async {
     final userId = Provider.of<UserProvider>(context, listen: false).userId;
+
     if (userId.isEmpty) {
       _showSnackBar("User ID tidak ditemukan, silakan login.");
       return;
@@ -43,7 +42,18 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
     // 🔹 Panggil API dan tangani response
     final response =
         await ApiService().acceptChallenge(userId, widget.challengeId);
-    _showSnackBar(response['message']);
+
+    // ✅ Jika berhasil, navigasi ke halaman utama setelah delay sebentar
+    if (response['status'] == "OnProgress") {
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MainScreen()),
+        );
+      });
+    } else {
+      _showSnackBar(response['message']);
+    }
   }
 
   void _showSnackBar(String message) {
