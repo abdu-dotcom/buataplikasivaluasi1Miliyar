@@ -1,6 +1,6 @@
 #### How to run java path sementara di vs code : execute command line
 
-$env:JAVA_HOME="C:\Program Files\Java\jdk-23.0.2"
+$env:JAVA_HOME="C:\Program Files\Java\jdk-17.0.12"
 $env:PATH="$env:JAVA_HOME\bin;$env:PATH"
 
 #### move path to the folder that have pop.xml 

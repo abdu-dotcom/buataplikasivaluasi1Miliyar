@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class UserResponse {
     @Id
-    private String user_id;
+    private String userIdd;
 
     private String username;
     private String email;

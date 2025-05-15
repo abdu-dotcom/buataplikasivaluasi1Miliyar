@@ -14,10 +14,10 @@ public class ChallengeSub {
     @Id
     @Column(name = "challenge_sub_id")
     private Integer challengeSubId;
-    private String challenge_sub_name;
-    private Integer challenge_sub_point;
-    private String challenge_sub_tipe_deadline;
-    private Integer challenge_sub_deadline_time;
+    private String challengeSubName;
+    private Integer challengePubPoint;
+    private String challengeSubTipeDeadline;
+    private Integer challengeSubDeadlineTime;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id", nullable = false)

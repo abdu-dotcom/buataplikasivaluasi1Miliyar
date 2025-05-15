@@ -3,6 +3,7 @@ package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeDetailDto;
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.UserChallengeListResponseDTO;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/user-challenge")
-@RequiredArgsConstructor
 public class UserChallengeController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserChallengeController.class);

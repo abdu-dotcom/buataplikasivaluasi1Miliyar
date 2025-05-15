@@ -8,6 +8,7 @@ import id.buataplikasivaluasi1miliyar.challanger.app.projection.UserChallengePro
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.ChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.repository.UserChallengeRepository;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.UserChallengeService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserChallengeServiceImpl implements UserChallengeService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserChallengeServiceImpl.class);
@@ -56,7 +57,7 @@ public class UserChallengeServiceImpl implements UserChallengeService {
             throw new CustomExceptionHandler.ResourceNotFoundException("Challenge not found for this user.");
         }
 
-        ChallengeDetailDto challengeDetailDto = challengeRepository.getChallengeById(challengeId)
+        ChallengeDetailDto challengeDetailDto = challengeRepository.getChallengeByChallengeId(challengeId)
                 .map(challengeMapper::toChallengeDetailDto)
                 .orElseThrow(() -> new IllegalArgumentException("Challenge not found"));
 

@@ -20,19 +20,19 @@ public class Challenge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "challenge_id")
-    private Integer id;
-    private String challenge_name;
-    private String challenge_description;
-    private String challenge_level;
-    private Integer challenge_participation;
-    private Integer challenge_participation_onprogress;
-    private Integer challenge_participation_finished;
-    private Integer challenge_participation_failed;
+    private Integer challengeId;
+    private String challengeName;
+    private String challengeDescription;
+    private String challengeLevel;
+    private Integer challengeParticipation;
+    private Integer challengeParticipationOnprogress;
+    private Integer challengeParticipationFinished;
+    private Integer challengeParticipationFailed;
 
     @Column(name = "categori_id")
     private Integer categoryId;
-    private Timestamp create_at;
-    private Timestamp update_at;
+    private Timestamp createAt;
+    private Timestamp updateAt;
 
     @OneToMany(mappedBy = "challenge_id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ChallengeSub> subChallenges;

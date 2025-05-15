@@ -41,7 +41,7 @@ public class ChallengeServiceImpl implements ChallengeService {
     public ChallengeDetailDto getChallengeById(Integer challengeId) {
     Challenge challenge =
         challengeRepository
-            .getChallengeById(challengeId)
+            .getChallengeByChallengeId(challengeId)
             .orElseThrow(
                     () -> new CustomExceptionHandler.ResourceNotFoundException(
                         "Challenge ", "ChallengeId = " + challengeId));

@@ -7,9 +7,5 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ChallengeProgressMapper {
-
-    ChallengeProgressMapper INSTANCE = Mappers.getMapper(ChallengeProgressMapper.class);
-
     ChallengeSubCompletionResponse toChallengeSubCompletionResponse(UserChallengeProgress userChallengeProgress);
-
 }
