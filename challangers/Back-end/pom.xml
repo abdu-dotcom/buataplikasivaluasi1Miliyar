@@ -132,6 +132,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.30</version> <!-- Versi terbaru -->
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -144,7 +145,6 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.18.30</version> <!-- Versi terbaru -->
 						</exclude>
 					</excludes>
 				</configuration>
