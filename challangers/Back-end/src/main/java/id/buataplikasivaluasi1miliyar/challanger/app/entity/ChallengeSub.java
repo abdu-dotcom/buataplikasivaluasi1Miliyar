@@ -14,9 +14,13 @@ public class ChallengeSub {
     @Id
     @Column(name = "challenge_sub_id")
     private Integer challengeSubId;
+    @Column(name = "challenge_sub_name")
     private String challengeSubName;
-    private Integer challengePubPoint;
+    @Column(name = "challenge_sub_point")
+    private Integer challengeSubPoint;
+    @Column(name = "challenge_sub_tipe_deadline")
     private String challengeSubTipeDeadline;
+    @Column(name = "challenge_sub_deadline_time")
     private Integer challengeSubDeadlineTime;
 
     @ManyToOne

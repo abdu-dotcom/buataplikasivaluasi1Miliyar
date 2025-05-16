@@ -12,21 +12,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ChallengeMapper {
 
-    Challenge toChallengeEntity(ChallengeDto challengeDto);
-
     @InheritInverseConfiguration
     ChallengeDto toChallengeDto(Challenge challenge);
 
-    Challenge toChallengeDetailEntity(ChallengeDetailDto challengeDetailDto);
     ChallengeDetailDto toChallengeDetailDto(Challenge challenge);
 
-    List<ChallengeDetailDto> toChallengeDetailDtoList(List<Challenge> challenges);
-
-    ChallengeSub toSubEntity(ChallengeSubDto challengeSubDto);
-
-    @InheritInverseConfiguration
-    ChallengeSubDto toSubDto(ChallengeSub challengeSub);
-
-    List<ChallengeSubDto> toSubDtoList(List<ChallengeSub> subChallenges);
-    List<ChallengeSub> toSubEntityList(List<ChallengeSubDto> subChallengeDtos);
+    // Tambahkan ini: untuk mapping data challengeSub
+    ChallengeSubDto toChallengeSubDto(ChallengeSub challengeSub);
 }

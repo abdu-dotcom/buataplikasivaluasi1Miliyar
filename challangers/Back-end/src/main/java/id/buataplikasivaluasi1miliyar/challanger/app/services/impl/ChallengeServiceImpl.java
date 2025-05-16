@@ -45,6 +45,7 @@ public class ChallengeServiceImpl implements ChallengeService {
             .orElseThrow(
                     () -> new CustomExceptionHandler.ResourceNotFoundException(
                         "Challenge ", "ChallengeId = " + challengeId));
+
         return challengeMapper.toChallengeDetailDto(challenge);
     }
 

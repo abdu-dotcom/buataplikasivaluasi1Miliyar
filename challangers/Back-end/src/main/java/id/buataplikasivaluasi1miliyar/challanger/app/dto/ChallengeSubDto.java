@@ -7,7 +7,6 @@ import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@JsonPropertyOrder
 @Builder
 public class ChallengeSubDto {
     @Id
