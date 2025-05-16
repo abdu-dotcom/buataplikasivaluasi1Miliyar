@@ -1,9 +1,7 @@
 package id.buataplikasivaluasi1miliyar.challanger.app.controllers;
 
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.CategoryDto;
-import id.buataplikasivaluasi1miliyar.challanger.app.exception.CustomExceptionHandler;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.CategoryService;
-import id.buataplikasivaluasi1miliyar.challanger.app.services.impl.CategoryServiceImpl;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +18,21 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class CategoryController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
-    private final CategoryService categoryService;
+  private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+  private final CategoryService categoryService;
 
-    @GetMapping("/categories")
-    public ResponseEntity<List<CategoryDto>> getCategories() {
-        logger.info("START  service : {} (API END POINT: {})", "getCategories", "/categories");
+  @GetMapping("/categories")
+  public ResponseEntity<List<CategoryDto>> getCategories() {
+    logger.info("START  service : {} (API END POINT: {})", "getCategories", "/categories");
 
-        List<CategoryDto> categories = categoryService.getCategories();
+    List<CategoryDto> categories = categoryService.getCategories();
 
-        logger.info("END    service : {} (API END POINT: {})", "getCategories", "/categories");
-        return new ResponseEntity<>(categories, HttpStatus.OK);
-    }
+    logger.info("END    service : {} (API END POINT: {})", "getCategories", "/categories");
+    return new ResponseEntity<>(categories, HttpStatus.OK);
+  }
+
+  @GetMapping("/java-version")
+  public String getJavaVersion() {
+    return System.getProperty("java.version");
+  }
 }
