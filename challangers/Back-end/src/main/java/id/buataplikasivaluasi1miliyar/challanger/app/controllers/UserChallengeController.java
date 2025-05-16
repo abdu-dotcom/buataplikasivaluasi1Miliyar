@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user-challenge")
 public class UserChallengeController {
