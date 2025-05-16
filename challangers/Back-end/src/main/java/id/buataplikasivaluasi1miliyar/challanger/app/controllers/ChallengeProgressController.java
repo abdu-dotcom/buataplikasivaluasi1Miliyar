@@ -8,17 +8,22 @@ import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.Ch
 import id.buataplikasivaluasi1miliyar.challanger.app.dto.ChallengeProcessFlow.ChallengeSubFailed.ChallengeSubFailedResponse;
 import id.buataplikasivaluasi1miliyar.challanger.app.services.ChallengeProgressService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class ChallengeProgressController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChallengeProgressController.class);
+
+    @Autowired
     private ChallengeProgressService challengeProgressService;
 
     /** Process user klik accept challenge artinya user mengikutin challenge dan mulai progress */
