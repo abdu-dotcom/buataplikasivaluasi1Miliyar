@@ -134,6 +134,9 @@
 								<artifactId>lombok</artifactId>
 							</path>
 					</annotationProcessorPaths>
+					<compilerArgs>
+						<arg>-Amapstruct.verbose=true</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -146,25 +149,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.bsc.maven</groupId>
-				<artifactId>maven-processor-plugin</artifactId>
-				<version>3.3.3</version>
-				<executions>
-					<execution>
-						<id>process</id>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<processors>
-						<processor>org.mapstruct.ap.MappingProcessor</processor>
-					</processors>
 				</configuration>
 			</plugin>
 		</plugins>

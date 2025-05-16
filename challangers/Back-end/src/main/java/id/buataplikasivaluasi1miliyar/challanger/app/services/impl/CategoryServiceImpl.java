@@ -30,6 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
         if (categories.isEmpty()) return Collections.emptyList(); // return list kosong
         logger.debug(LogVariableUtil.log("categories", categories));
 
+        for (Category cat : categories) {
+            System.out.println("Category ID: " + cat.getCategoryId());
+            System.out.println("Category Name: " + cat.getCategoryName());
+            System.out.println("Category description: " + cat.getCategoryDesc());
+            System.out.println("Category Image: " + cat.getCategoryImg());
+        }
         return categories.stream()
            .map(categoryMapper::mapToCategoryDto) // Konversi dari entity ke Dto
            .collect(Collectors.toList());
