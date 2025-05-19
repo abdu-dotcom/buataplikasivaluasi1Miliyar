@@ -36,9 +36,13 @@ public class CategoryServiceImpl implements CategoryService {
             System.out.println("Category description: " + cat.getCategoryDesc());
             System.out.println("Category Image: " + cat.getCategoryImg());
         }
-        return categories.stream()
-           .map(categoryMapper::mapToCategoryDto) // Konversi dari entity ke Dto
-           .collect(Collectors.toList());
-
+        return   categories.stream().map(cat -> {
+            CategoryDto dto = new CategoryDto();
+            dto.setCategoryId(cat.getCategoryId());
+            dto.setCategoryName(cat.getCategoryName());
+            dto.setCategoryDesc(cat.getCategoryDesc());
+            dto.setCategoryImg(cat.getCategoryImg());
+            return dto;
+        }).toList();
     }
 }
