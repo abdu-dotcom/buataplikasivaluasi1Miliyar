@@ -22,7 +22,6 @@ public class MotivationController {
 
     private static final Logger logger = LoggerFactory.getLogger(MotivationController.class);
 
-    @Autowired
     private MotivationService motivationService;
 
     @GetMapping("/motivations")

@@ -22,7 +22,6 @@ public class ChallengeProgressController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChallengeProgressController.class);
 
-    @Autowired
     private ChallengeProgressService challengeProgressService;
 
     /** Process user klik accept challenge artinya user mengikutin challenge dan mulai progress */

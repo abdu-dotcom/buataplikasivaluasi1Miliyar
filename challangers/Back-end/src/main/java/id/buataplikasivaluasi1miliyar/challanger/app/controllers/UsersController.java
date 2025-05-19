@@ -21,7 +21,6 @@ public class UsersController {
 
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
-    @Autowired
     private final UserService userService;
 
     @GetMapping("/users")

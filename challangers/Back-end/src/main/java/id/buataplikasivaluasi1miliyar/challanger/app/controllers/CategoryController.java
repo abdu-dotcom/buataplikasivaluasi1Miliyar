@@ -22,7 +22,6 @@ public class CategoryController {
 
   private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
-  @Autowired
   private final CategoryService categoryService;
 
   @GetMapping("/categories")

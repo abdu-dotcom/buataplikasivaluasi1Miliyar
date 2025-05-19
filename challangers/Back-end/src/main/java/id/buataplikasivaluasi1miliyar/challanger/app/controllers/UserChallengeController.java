@@ -18,7 +18,6 @@ public class UserChallengeController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserChallengeController.class);
 
-    @Autowired
     private final UserChallengeService service;
 
     @GetMapping("/{userId}")

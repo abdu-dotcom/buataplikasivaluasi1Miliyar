@@ -24,7 +24,6 @@ public class ExploreMenuController {
 
     private static final Logger logger = LoggerFactory.getLogger(ExploreMenuController.class);
 
-    @Autowired
     private final ExploreMenuService exploreMenuService;
 
     @GetMapping("/explore-menu/other-users")

@@ -22,7 +22,6 @@ public class LeaderboardController {
 
     private static final Logger logger = LoggerFactory.getLogger(LeaderboardController.class);
 
-    @Autowired
     private final LeaderboardService leaderboardService;
 
     @GetMapping("/leaderboard/{userId}")

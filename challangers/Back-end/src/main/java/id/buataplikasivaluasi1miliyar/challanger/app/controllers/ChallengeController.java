@@ -21,7 +21,6 @@ public class  ChallengeController {
 
     private static final Logger logger = LoggerFactory.getLogger(ChallengeController.class);
 
-    @Autowired
     private final ChallengeService challengeService;
 
     @GetMapping("/challengers")
