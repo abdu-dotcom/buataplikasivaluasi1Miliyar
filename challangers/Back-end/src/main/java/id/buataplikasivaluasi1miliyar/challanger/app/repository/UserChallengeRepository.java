@@ -37,9 +37,9 @@ public interface UserChallengeRepository extends JpaRepository<UserChallenge, St
 
   @Query(
       value = """
-          select count(*) as numberOfChallengeDays from challenges_sub cs where cs.challenge_id = :challengeId;
+          select count(*) from challenges_sub cs where cs.challenge_id = :challengeId;
         """,nativeQuery = true)
-  Integer getNumberOfChallengeDaysByChallengeId(Integer challengeId);
+  Integer getNumberOfChallengeDaysByChallengeId(@Param("challengeId")  Integer challengeId);
 
   @Query(value = """
           select CASE
