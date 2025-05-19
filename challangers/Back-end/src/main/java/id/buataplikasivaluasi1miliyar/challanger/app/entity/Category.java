@@ -3,8 +3,6 @@ package id.buataplikasivaluasi1miliyar.challanger.app.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
 @Data
 @Entity
 @Table(name = "categories")

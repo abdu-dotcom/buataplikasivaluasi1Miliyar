@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class CategoryDto {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
     private String categoryName;
     private String categoryDesc;
