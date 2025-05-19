@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
         logger.debug(LogVariableUtil.log("categories", categories));
 
         for (Category cat : categories) {
-            System.out.println("Category ID: " + cat.getCategoryId());
+            System.out.println("Category ID : " + cat.getCategoryId());
             System.out.println("Category Name: " + cat.getCategoryName());
             System.out.println("Category description: " + cat.getCategoryDesc());
             System.out.println("Category Image: " + cat.getCategoryImg());
